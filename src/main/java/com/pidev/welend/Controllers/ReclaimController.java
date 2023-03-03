@@ -1,4 +1,4 @@
-package com.pidev.welend.controllers;
+package com.pidev.welend.Controllers;
 
 import com.pidev.welend.entities.Reclaim;
 import com.pidev.welend.services.ReclaimService;

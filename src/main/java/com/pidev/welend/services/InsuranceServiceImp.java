@@ -16,25 +16,30 @@ public class InsuranceServiceImp implements InsuranceService{
 
     @Override
     public insurance addInsurance(insurance i) {
+
         return insuranceRepo.save(i);
     }
     public insurance updateInsurance(insurance i)
     {
+
         return insuranceRepo.save(i);
     }
 
     @Override
     public List<insurance> getAllInsurance() {
+
         return insuranceRepo.findAll();
     }
 
     @Override
     public insurance getInsuranceById(Integer insuranceID) {
+
         return insuranceRepo.findById(insuranceID).orElse(null);
     }
 
     @Override
     public void deleteInsurance(Integer insuranceId) {
+
         insuranceRepo.deleteById(insuranceId);
     }
 }
