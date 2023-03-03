@@ -1,12 +1,13 @@
 package com.pidev.welend.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Table( name = "Consultation")
-public class Consultation {
+public class Consultation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="consultationID")

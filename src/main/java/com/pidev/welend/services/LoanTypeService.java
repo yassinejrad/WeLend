@@ -1,7 +1,7 @@
 package com.pidev.welend.services;
 
 import com.pidev.welend.entities.LoanType;
-import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
