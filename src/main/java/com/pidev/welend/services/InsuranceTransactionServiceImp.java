@@ -38,4 +38,9 @@ public class InsuranceTransactionServiceImp implements InsuranceTransactionServi
     public void deleteInsuranceTransaction(Integer insuranceTransactionId) {
         insuranceTransactionRepo.deleteById(insuranceTransactionId);
     }
+
+    @Override
+    public List<insuranceTransaction> getInsuranceTransactionByInsuranceID(Integer insuranceID) {
+        return (List<insuranceTransaction>) insuranceTransactionRepo.findById(insuranceID).orElse(null);
+    }
 }

@@ -20,4 +20,6 @@ public class insurance implements Serializable {
     private insuranceType insuranceType;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "insurance")
     private Set<insuranceTransaction> insuranceTransactions;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "insurance")
+    private Set<insuranceDetail> insuranceDetails;
 }
