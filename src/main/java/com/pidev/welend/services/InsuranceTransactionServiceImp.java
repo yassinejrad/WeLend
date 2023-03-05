@@ -41,6 +41,6 @@ public class InsuranceTransactionServiceImp implements InsuranceTransactionServi
 
     @Override
     public List<insuranceTransaction> getInsuranceTransactionByInsuranceID(Integer insuranceID) {
-        return (List<insuranceTransaction>) insuranceTransactionRepo.findById(insuranceID).orElse(null);
+        return insuranceTransactionRepo.findByInsuranceId(insuranceID);
     }
 }
