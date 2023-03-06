@@ -12,6 +12,6 @@ public interface InsuranceService {
     public insurance getInsuranceById(Integer insuranceID);
     public void deleteInsurance(Integer insuranceId);
     public double calculateInterest(Integer insuranceId);
-
+    public void renewInsurance(Integer insuranceID);
 
 }

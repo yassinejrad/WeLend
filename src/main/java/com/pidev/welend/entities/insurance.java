@@ -15,9 +15,35 @@ public class insurance implements Serializable {
     private String insuranceDescription;
     private Date startDate;
     private Date endDate;
+    private Integer renewalCount;
+    private double intresetRate;
+
+    public Integer getRenewalCount() {
+        return renewalCount;
+    }
 
     public Integer getInsuranceID() {
         return insuranceID;
+    }
+
+    public void setInsuranceDescription(String insuranceDescription) {
+        this.insuranceDescription = insuranceDescription;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setRenewalCount(Integer renewalCount) {
+        this.renewalCount = renewalCount;
+    }
+
+    public void setIntresetRate(double intresetRate) {
+        this.intresetRate = intresetRate;
     }
 
     public String getInsuranceDescription() {
@@ -32,11 +58,11 @@ public class insurance implements Serializable {
         return endDate;
     }
 
-    public Float getIntresetRate() {
+    public double getIntresetRate() {
         return intresetRate;
     }
 
-    private Float intresetRate;
+
     @ManyToOne Account account;
     @OneToOne
     private insuranceType insuranceType;

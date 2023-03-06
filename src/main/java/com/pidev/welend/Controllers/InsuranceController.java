@@ -38,4 +38,8 @@ public class InsuranceController {
     public double calculateInterest(@PathVariable("id") Integer insuranceID){
         return insuranceService.calculateInterest(insuranceID);
     }
+    @GetMapping("/renewInsurance{id}")
+    public void renewInsurance(@PathVariable("id") Integer insuranceID){
+         insuranceService.renewInsurance(insuranceID);
+    }
 }
