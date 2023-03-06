@@ -82,8 +82,11 @@ public class InsuranceServiceImp implements InsuranceService{
 
         Date endDate = convertLocalDateToDate(LocalDate.now().plusYears(1));
         insurance.setEndDate(endDate);
+        Date datetest=insurance.getEndDate();
+        System.out.println(datetest);
         insurance.setIntresetRate(interestRate);
         insurance.setRenewalCount(renewalCount);
+        insuranceRepo.save(insurance);
 
         System.out.println("Insurance renewed successfully with an interest rate of " + interestRate
                 + " and an end date of " + endDate + ". Original interest rate was " + originalInterestRate + ".");
