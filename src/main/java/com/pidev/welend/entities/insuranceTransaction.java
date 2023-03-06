@@ -13,6 +13,23 @@ public class insuranceTransaction implements Serializable {
     private Integer insuranceTransactionID;
     private Float amount;
     private Date transactionDate;
+
+    public Integer getInsuranceTransactionID() {
+        return insuranceTransactionID;
+    }
+
+    public Float getAmount() {
+        return amount;
+    }
+
+    public Date getTransactionDate() {
+        return transactionDate;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
     private String Description;
     @ManyToOne insurance insurance;
 }

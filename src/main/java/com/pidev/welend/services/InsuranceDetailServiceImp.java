@@ -1,6 +1,7 @@
 package com.pidev.welend.services;
 
 import com.pidev.welend.entities.insuranceDetail;
+import com.pidev.welend.entities.insuranceTransaction;
 import com.pidev.welend.repos.InsuranceDetailRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,18 @@ public class InsuranceDetailServiceImp implements InsuranceDetailService{
     public void deleteInsuranceDetail(Integer insuranceDetailID) {
         insuranceDetailRepo.deleteById(insuranceDetailID);
 
+    }
+    @Override
+    public double calculateAverageAmountSpentOnAccidents(int month, int year) {
+        double totalAmount = 0.0;
+        int count = 0;
+        List<insuranceDetail> insuranceDetails = getAllInsuranceDetail();
+        for (insuranceDetail detail : insuranceDetails) {
+            if (detail.getAccidentDate().getMonth() == month && detail.getAccidentDate().getYear() == year) {
+                totalAmount += detail.getInsuredAmount();
+                count++;
+            }
+        }
+        return (count > 0) ? (totalAmount / count) : 0.0;
     }
 }
