@@ -36,10 +36,16 @@ public class LoanController {
     }
     @GetMapping("/getByID/{id}")
 
-        public Loan getByLoan(@PathVariable("id") Integer LoanID )
+    public Loan getByLoan(@PathVariable("id") Integer LoanID )
         {
             return loanService.getLoanById(LoanID);
         }
+    @PostMapping("/loan/calculate-interest")
+    public double calculateInterest(@RequestBody Loan loan) {
+        return loanService.calculateInterest(loan);
+    }
+
+
 
 
 }

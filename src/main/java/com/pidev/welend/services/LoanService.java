@@ -10,6 +10,7 @@ public interface LoanService {
     public List<Loan> getAllLoans();
     public Loan getLoanById(Integer LoanID);
     public void deleteLoan(Integer LoanID);
+    public double calculateInterest(Loan loan);
 
 
 }

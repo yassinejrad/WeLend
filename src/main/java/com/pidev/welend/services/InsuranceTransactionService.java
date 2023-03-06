@@ -10,4 +10,8 @@ public interface InsuranceTransactionService {
     public List<insuranceTransaction> getAllInsuranceTransaction();
     public insuranceTransaction getInsuranceTransactionById(Integer insuranceTransactionID);
     public void deleteInsuranceTransaction(Integer insuranceTransactionId);
+<<<<<<< Updated upstream
+=======
+   // public List<insuranceTransaction> getInsuranceTransactionByInsuranceID(Integer insuranceID);
+>>>>>>> Stashed changes
 }
