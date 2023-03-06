@@ -2,7 +2,9 @@ package com.pidev.welend.services;
 
 
 import com.pidev.welend.entities.insurance;
+import com.pidev.welend.entities.insuranceTransaction;
 import com.pidev.welend.repos.InsuranceRepo;
+import com.pidev.welend.repos.InsuranceTransactionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ public class InsuranceServiceImp implements InsuranceService{
 
     @Autowired
     InsuranceRepo insuranceRepo;
+    InsuranceTransactionRepo insuranceTransactionRepo;
 
     @Override
     public insurance addInsurance(insurance i) {
@@ -42,4 +45,21 @@ public class InsuranceServiceImp implements InsuranceService{
 
         insuranceRepo.deleteById(insuranceId);
     }
+
+    @Override
+    public double calculateInterest(Integer insuranceId) {
+        insurance insurance = insuranceRepo.findById(insuranceId).orElseThrow(null);
+        Float interestRate = insurance.getIntresetRate();
+        List<insuranceTransaction> transactions = insuranceTransactionRepo.findByInsurance_InsuranceID(insuranceId);
+        double totalInterest = 0.0;
+        for (insuranceTransaction transaction : transactions) {
+            Float transactionInterest = (transaction.getAmount() * interestRate) / 100;
+            totalInterest += transactionInterest;
+        }
+        return totalInterest;
+    }
+
+
+
+
 }

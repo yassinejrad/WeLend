@@ -11,4 +11,5 @@ public interface InsuranceDetailService {
     public List<insuranceDetail> getAllInsuranceDetail();
     public insuranceDetail getInsuranceDetailById(Integer insuranceDetailID);
     public void deleteInsuranceDetail(Integer insuranceDetailID);
+    public double calculateAverageAmountSpentOnAccidents(int month, int year);
 }
