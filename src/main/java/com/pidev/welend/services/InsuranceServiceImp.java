@@ -1,11 +1,12 @@
 package com.pidev.welend.services;
 
 
-import com.pidev.welend.entities.insurance;
-import com.pidev.welend.entities.insuranceTransaction;
+import com.pidev.welend.entities.*;
+import com.pidev.welend.repos.AccountRepo;
 import com.pidev.welend.repos.InsuranceRepo;
 import com.pidev.welend.repos.InsuranceTransactionRepo;
 
+import com.pidev.welend.repos.TransactionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+
 @Service
 public class InsuranceServiceImp implements InsuranceService{
 
     @Autowired
     InsuranceRepo insuranceRepo;
     InsuranceTransactionRepo insuranceTransactionRepo;
+    AccountRepo accountRepo;
+    TransactionRepo transactionRepo;
 
     @Override
     public insurance addInsurance(insurance i) {
@@ -80,9 +84,7 @@ public class InsuranceServiceImp implements InsuranceService{
         int endYear = endCalendar.get(Calendar.YEAR);
         int endMonth = endCalendar.get(Calendar.MONTH);
 
-        int monthsBetween = (endYear - startYear) * 12 + (endMonth - startMonth);
-
-        return monthsBetween;
+        return (endYear - startYear) * 12 + (endMonth - startMonth);
     }
 
     @Override
@@ -141,5 +143,59 @@ public class InsuranceServiceImp implements InsuranceService{
                     + " and an end date of " + endDate + ". Original interest rate was " + originalInterestRate + ".");
         }
     }
-    
+    public static boolean sameMonthAndYear(Date date1, Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+        int month1 = cal1.get(Calendar.MONTH);
+        int year1 = cal1.get(Calendar.YEAR);
+
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+        int month2 = cal2.get(Calendar.MONTH);
+        int year2 = cal2.get(Calendar.YEAR);
+
+        return (month1 == month2 && year1 == year2);
+    }
+    @Scheduled(cron = "* * * * * *")
+    public void checkInsuranceTransactionPayments() {
+        try {
+        List<Account> accounts = accountRepo.findAll();
+        for (Account account : accounts) {
+            try {
+            List<Transaction> transactions = transactionRepo.findTransactionByAccount_AccountID(account.getAccountID());
+            List<insurance> insurances = insuranceRepo.findByAccount_AccountID(account.getAccountID());
+            for (Transaction transaction : transactions) {
+                if (transaction.getTransactionType() == transactionType.INSURANCEPAYMENT) {
+                    for (insurance insurance : insurances){
+                        try {
+                            List<insuranceTransaction> insuranceTransactions = insuranceTransactionRepo.findByInsurance_InsuranceID(insurance.getInsuranceID());
+                            for (insuranceTransaction insuranceTransaction : insuranceTransactions) {
+                                if (insuranceTransaction != null && sameMonthAndYear(insuranceTransaction.getTransactionDate(), transaction.getTransactionDate())) {
+                                    if (insuranceTransaction.getAmount() == transaction.getAmount()) {
+                                        insuranceTransaction.setStatusTransaction("SETTLED");
+                                        insuranceTransactionRepo.save(insuranceTransaction);
+                                    } else if (insuranceTransaction.getAmount() > transaction.getAmount()) {
+                                        insuranceTransaction.setStatusTransaction("NOTFULLYSETTLED");
+                                        insuranceTransactionRepo.save(insuranceTransaction);
+                                    }
+                                }
+                            }
+                        }catch (Exception e){
+                            System.out.println("Error while finding insurancesTransactions: " + e.getMessage());
+
+                        }
+                    }
+                }
+            }
+            }catch (Exception e){
+                System.out.println("Error while finding insurances or transactions: " + e.getMessage());
+
+            }
+        }
+        }catch (Exception e){
+            System.out.println("Error while finding accounts: " + e.getMessage());
+        }
+    }
+
+
 }

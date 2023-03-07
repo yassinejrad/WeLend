@@ -1,11 +1,16 @@
 package com.pidev.welend.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 
 
+@Getter
+@Setter
 @Entity
 @Table( name = "Account")
 public class Account implements Serializable {
