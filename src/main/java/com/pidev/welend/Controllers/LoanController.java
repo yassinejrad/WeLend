@@ -1,6 +1,7 @@
 package com.pidev.welend.Controllers;
 
 import com.pidev.welend.entities.Loan;
+import com.pidev.welend.entities.LoanTransaction;
 import com.pidev.welend.services.LoanService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,14 @@ public class LoanController {
         {
             return loanService.getLoanById(LoanID);
         }
-    @PostMapping("/loan/calculate-interest")
+    @PostMapping("/calculate-interest")
     public double calculateInterest(@RequestBody Loan loan) {
         return loanService.calculateInterest(loan);
+    }
+
+    @PostMapping("/generate_payment_schedule")
+    public List<LoanTransaction> generatePaymentSchedule(@RequestBody Loan loan) {
+        return loanService.generatePaymentSchedule(loan);
     }
 
 

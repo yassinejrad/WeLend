@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,13 +25,19 @@ public class Loan implements Serializable {
     private Integer LoanID;
     private Integer LoanNumber;
     private double LoanAmount;
-    private String LoanStatus;
+    private LoanStatus Status;
     private float InterestRate;
     private int durationInMonths;
-    private String
-    ;
+    private String Collaterals;
+    //List<LoanTransaction> RepaymentSchedule;
 
 
+
+
+
+
+    @Enumerated(EnumType.STRING)
+    private LoanStatus loanStatus;
     @ManyToOne
     Account account;
 
