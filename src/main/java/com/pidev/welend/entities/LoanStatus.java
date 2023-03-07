@@ -1,5 +1,5 @@
 package com.pidev.welend.entities;
 
 public enum LoanStatus {
-    ACTIVE,PAID,UNPAID
+    ACTIVE,PAID,UNPAID,PENDING
 }
