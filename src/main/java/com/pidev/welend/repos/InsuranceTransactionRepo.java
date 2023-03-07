@@ -6,5 +6,7 @@ import com.pidev.welend.entities.insuranceTransaction;
 import java.util.List;
 
 public interface InsuranceTransactionRepo extends JpaRepository<insuranceTransaction,Integer> {
+
     List<insuranceTransaction> findByInsurance_InsuranceID(Integer InsuranceID);
+
 }
