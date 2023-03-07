@@ -16,10 +16,12 @@ public class InsuranceController {
     InsuranceService insuranceService;
     @PostMapping("/add")
     public insurance addInsurance(@RequestBody insurance i){
+
         return insuranceService.addInsurance(i);
     }
     @PostMapping("/update")
     public insurance updateInsurance(@RequestBody insurance i){
+
         return insuranceService.updateInsurance(i);
     }
     @DeleteMapping ("/delete/{id}")
@@ -41,5 +43,9 @@ public class InsuranceController {
     @GetMapping("/renewInsurance/{id}")
     public void renewInsurance(@PathVariable("id") Integer insuranceID){
          insuranceService.renewInsurance(insuranceID);
+    }
+    @PostMapping("/addInsuranceAndTransaction")
+    public void createInsuranceAndTransactions(@RequestBody insurance i){
+         insuranceService.createInsuranceAndTransactions(i);
     }
 }

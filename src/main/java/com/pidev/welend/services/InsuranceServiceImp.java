@@ -5,11 +5,14 @@ import com.pidev.welend.entities.insurance;
 import com.pidev.welend.entities.insuranceTransaction;
 import com.pidev.welend.repos.InsuranceRepo;
 import com.pidev.welend.repos.InsuranceTransactionRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -64,6 +67,7 @@ public class InsuranceServiceImp implements InsuranceService{
     public static Date convertLocalDateToDate(LocalDate localDate) {
         return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
+    //@Scheduled(cron = "* * * * *")
     @Override
     public void renewInsurance(Integer insuranceID) {
         insurance insurance = insuranceRepo.findById(insuranceID).orElse(null);
@@ -92,6 +96,54 @@ public class InsuranceServiceImp implements InsuranceService{
                     + " and an end date of " + endDate + ". Original interest rate was " + originalInterestRate + ".");
         }
     }
+    public static int calculateDurationInMonths(Date startDate, Date endDate) {
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.setTime(startDate);
+
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.setTime(endDate);
+
+        int startYear = startCalendar.get(Calendar.YEAR);
+        int startMonth = startCalendar.get(Calendar.MONTH);
+
+        int endYear = endCalendar.get(Calendar.YEAR);
+        int endMonth = endCalendar.get(Calendar.MONTH);
+
+        int monthsBetween = (endYear - startYear) * 12 + (endMonth - startMonth);
+
+        return monthsBetween;
+    }
+    @Override
+    public void createInsuranceAndTransactions(insurance insurance) {
+        // Calculate the duration in months
+        int durationInMonths = calculateDurationInMonths(insurance.getStartDate(), insurance.getEndDate());
+
+        // Save the insurance object
+        insuranceRepo.save(insurance);
+
+        // Calculate the transaction amount
+        double transactionAmount = insurance.getAmount() / durationInMonths;
+
+        // Create a transaction object for each month in the duration
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(insurance.getStartDate());
+
+        for (int i = 0; i < durationInMonths; i++) {
+            // Create the transaction object
+            insuranceTransaction transaction = new insuranceTransaction();
+            transaction.setInsuranceTransactionID(insurance.getInsuranceID());
+            transaction.setAmount(transactionAmount);
+            transaction.setTransactionDate(calendar.getTime());
+            transaction.setDescription("Payment : " + i);
+            transaction.setStatusTransaction("PENDING");
+            insuranceTransactionRepo.save(transaction);
+            calendar.add(Calendar.MONTH, 1);
+        }
+
+    }
+
+
+
 
 
 }

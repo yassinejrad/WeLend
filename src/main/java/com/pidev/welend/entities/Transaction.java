@@ -19,7 +19,7 @@ public class Transaction implements Serializable {
     private transactionStatus transactionStatus;
     @Enumerated(EnumType.STRING)
     private  transactionMethod transactionMethod;
-    private String transactionPurpuse;
+    private String transactionPurpose;
     private float exchangeRate;
     private float amount;
     private String currency;

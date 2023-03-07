@@ -35,9 +35,9 @@ public class InsuranceDetailController {
     public insuranceDetail getInsuranceDetailById(@PathVariable("id") Integer insuranceDetailID){
         return insuranceDetailService.getInsuranceDetailById(insuranceDetailID);
     }
-    @GetMapping("/getAverageAmountSpent/{month}/{year}")
+    /*@GetMapping("/getAverageAmountSpent/{month}/{year}")
     public  double calculateAverageAmountSpentOnAccidents(@PathVariable("month") Integer month,@PathVariable("year") Integer year){
         return insuranceDetailService.calculateAverageAmountSpentOnAccidents(month,year);
-    }
+    }*/
 
 }

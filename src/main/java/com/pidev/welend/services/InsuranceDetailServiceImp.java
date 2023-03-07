@@ -6,6 +6,7 @@ import com.pidev.welend.repos.InsuranceDetailRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -37,8 +38,9 @@ public class InsuranceDetailServiceImp implements InsuranceDetailService{
         insuranceDetailRepo.deleteById(insuranceDetailID);
 
     }
+    /*
     @Override
-    public double calculateAverageAmountSpentOnAccidents(int month, int year) {
+    public HashMap<> calculateAverageAmountSpentOnAccidents(int year) {
         double totalAmount = 0.0;
         int count = 0;
         List<insuranceDetail> insuranceDetails = getAllInsuranceDetail();
@@ -49,5 +51,5 @@ public class InsuranceDetailServiceImp implements InsuranceDetailService{
             }
         }
         return (count > 0) ? (totalAmount / count) : 0.0;
-    }
+    }*/
 }
