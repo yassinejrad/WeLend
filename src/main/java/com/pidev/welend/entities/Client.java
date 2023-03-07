@@ -33,5 +33,7 @@ public class Client implements Serializable {
     private Set<Account> accounts;
 @OneToMany(cascade = CascadeType.ALL,mappedBy = "client")
     private  Set<Consultation> consultations;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="client")
+    private Set<meetingtable> meetings;
 
 }

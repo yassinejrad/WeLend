@@ -3,6 +3,7 @@ package com.pidev.welend.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table( name = "Agent")
@@ -21,5 +22,7 @@ public class Agent implements Serializable {
     @Enumerated(EnumType.STRING)
     private agentType agentType;
     @ManyToOne Consultation consultation;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="agent")
+    private Set<meetingtable> meetings;
 
 }
