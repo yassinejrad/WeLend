@@ -1,11 +1,16 @@
 package com.pidev.welend.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table( name = "Insurance")
 public class insurance implements Serializable {
     @Id
@@ -17,50 +22,7 @@ public class insurance implements Serializable {
     private Date endDate;
     private Integer renewalCount;
     private double intresetRate;
-
-    public Integer getRenewalCount() {
-        return renewalCount;
-    }
-
-    public Integer getInsuranceID() {
-        return insuranceID;
-    }
-
-    public void setInsuranceDescription(String insuranceDescription) {
-        this.insuranceDescription = insuranceDescription;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setRenewalCount(Integer renewalCount) {
-        this.renewalCount = renewalCount;
-    }
-
-    public void setIntresetRate(double intresetRate) {
-        this.intresetRate = intresetRate;
-    }
-
-    public String getInsuranceDescription() {
-        return insuranceDescription;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public double getIntresetRate() {
-        return intresetRate;
-    }
+    private double amount;
 
 
     @ManyToOne Account account;
