@@ -70,27 +70,27 @@ public class InsuranceServiceImp implements InsuranceService{
         Date currentDate = convertLocalDateToDate(LocalDate.now());
         if ( currentDate.compareTo(insurance.getEndDate())<0) {
             System.out.println("Cannot renew insurance as it has not expired yet.");
+        }else {
+
+            int renewalCount = insurance.getRenewalCount() + 1;
+            double interestRate = insurance.getIntresetRate();
+            double originalInterestRate = interestRate + ((renewalCount / 5) * 0.1 );
+            if (renewalCount % 5 == 0 && interestRate > originalInterestRate/2) {
+                interestRate = interestRate*0.9;
+
+            }
+
+            Date endDate = convertLocalDateToDate(LocalDate.now().plusYears(1));
+            insurance.setEndDate(endDate);
+            Date datetest=insurance.getEndDate();
+            System.out.println(datetest);
+            insurance.setIntresetRate(interestRate);
+            insurance.setRenewalCount(renewalCount);
+            insuranceRepo.save(insurance);
+
+            System.out.println("Insurance renewed successfully with an interest rate of " + interestRate
+                    + " and an end date of " + endDate + ". Original interest rate was " + originalInterestRate + ".");
         }
-
-        int renewalCount = insurance.getRenewalCount() + 1;
-        double interestRate = insurance.getIntresetRate();
-        double originalInterestRate = interestRate + ((renewalCount / 5) * -0.1 * interestRate);
-        if (renewalCount % 5 == 0 && interestRate > originalInterestRate/2) {
-            interestRate = interestRate*0.9;
-
-        }
-
-        Date endDate = convertLocalDateToDate(LocalDate.now().plusYears(1));
-        insurance.setEndDate(endDate);
-        Date datetest=insurance.getEndDate();
-        System.out.println(datetest);
-        insurance.setIntresetRate(interestRate);
-        insurance.setRenewalCount(renewalCount);
-        insuranceRepo.save(insurance);
-
-        System.out.println("Insurance renewed successfully with an interest rate of " + interestRate
-                + " and an end date of " + endDate + ". Original interest rate was " + originalInterestRate + ".");
-
     }
 
 
