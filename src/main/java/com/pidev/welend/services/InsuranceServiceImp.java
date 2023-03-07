@@ -67,35 +67,6 @@ public class InsuranceServiceImp implements InsuranceService{
     public static Date convertLocalDateToDate(LocalDate localDate) {
         return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
-    //@Scheduled(cron = "* * * * *")
-    @Override
-    public void renewInsurance(Integer insuranceID) {
-        insurance insurance = insuranceRepo.findById(insuranceID).orElse(null);
-        Date currentDate = convertLocalDateToDate(LocalDate.now());
-        if ( currentDate.compareTo(insurance.getEndDate())<0) {
-            System.out.println("Cannot renew insurance as it has not expired yet.");
-        }else {
-
-            int renewalCount = insurance.getRenewalCount() + 1;
-            double interestRate = insurance.getIntresetRate();
-            double originalInterestRate = interestRate + ((renewalCount / 5) * 0.1 );
-            if (renewalCount % 5 == 0 && interestRate > originalInterestRate/2) {
-                interestRate = interestRate*0.9;
-
-            }
-
-            Date endDate = convertLocalDateToDate(LocalDate.now().plusYears(1));
-            insurance.setEndDate(endDate);
-            Date datetest=insurance.getEndDate();
-            System.out.println(datetest);
-            insurance.setIntresetRate(interestRate);
-            insurance.setRenewalCount(renewalCount);
-            insuranceRepo.save(insurance);
-
-            System.out.println("Insurance renewed successfully with an interest rate of " + interestRate
-                    + " and an end date of " + endDate + ". Original interest rate was " + originalInterestRate + ".");
-        }
-    }
     public static int calculateDurationInMonths(Date startDate, Date endDate) {
         Calendar startCalendar = Calendar.getInstance();
         startCalendar.setTime(startDate);
@@ -113,6 +84,7 @@ public class InsuranceServiceImp implements InsuranceService{
 
         return monthsBetween;
     }
+
     @Override
     public void createInsuranceAndTransactions(insurance insurance) {
         // Calculate the duration in months
@@ -139,11 +111,35 @@ public class InsuranceServiceImp implements InsuranceService{
             insuranceTransactionRepo.save(transaction);
             calendar.add(Calendar.MONTH, 1);
         }
-
     }
 
+    @Override
+    public void renewInsurance(Integer insuranceID) {
+        insurance insurance = insuranceRepo.findById(insuranceID).orElse(null);
+        Date currentDate = convertLocalDateToDate(LocalDate.now());
+        if ( currentDate.compareTo(insurance.getEndDate())<0) {
+            System.out.println("Cannot renew insurance as it has not expired yet.");
+        }else {
 
+            int renewalCount = insurance.getRenewalCount() + 1;
+            double interestRate = insurance.getIntresetRate();
+            double originalInterestRate = interestRate + ((renewalCount / 5) * 0.1 );
+            if (renewalCount % 5 == 0 && interestRate > originalInterestRate/2) {
+                interestRate = interestRate*0.9;
 
+            }
 
+            Date endDate = convertLocalDateToDate(LocalDate.now().plusYears(1));
+            insurance.setEndDate(endDate);
+            Date datetest=insurance.getEndDate();
+            System.out.println(datetest);
+            insurance.setIntresetRate(interestRate);
+            insurance.setRenewalCount(renewalCount);
+            createInsuranceAndTransactions(insurance);
 
+            System.out.println("Insurance renewed successfully with an interest rate of " + interestRate
+                    + " and an end date of " + endDate + ". Original interest rate was " + originalInterestRate + ".");
+        }
+    }
+    
 }
