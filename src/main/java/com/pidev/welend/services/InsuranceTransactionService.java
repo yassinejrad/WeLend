@@ -10,4 +10,5 @@ public interface InsuranceTransactionService {
     public List<insuranceTransaction> getAllInsuranceTransaction();
     public insuranceTransaction getInsuranceTransactionById(Integer insuranceTransactionID);
     public void deleteInsuranceTransaction(Integer insuranceTransactionId);
+    public List<insuranceTransaction> getInsuranceTransactionByInsuranceID(Integer insuranceID);
 }
