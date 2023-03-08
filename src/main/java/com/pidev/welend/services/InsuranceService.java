@@ -14,6 +14,7 @@ public interface InsuranceService {
     public void deleteInsurance(Integer insuranceId);
     public double calculateInterest(Integer insuranceId);
     public HashMap<insurance, Double> calculateInterestByYear(int year);
+    public HashMap<insurance, Double> calculateInterestByinsurance();
     public void renewInsurance(Integer insuranceID);
     public void createInsuranceAndTransactions(insurance insurance);
 

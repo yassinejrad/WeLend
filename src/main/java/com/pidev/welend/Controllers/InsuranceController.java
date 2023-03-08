@@ -45,6 +45,10 @@ public class InsuranceController {
     public HashMap<insurance, Double> calculateInterestByYear(@PathVariable("id") Integer insuranceID){
         return insuranceService.calculateInterestByYear(insuranceID);
     }
+    @GetMapping("/calculateInterestByInsurance")
+    public HashMap<insurance, Double> calculateInterestByInsurance(){
+        return insuranceService.calculateInterestByinsurance();
+    }
     @GetMapping("/renewInsurance/{id}")
     public void renewInsurance(@PathVariable("id") Integer insuranceID){
          insuranceService.renewInsurance(insuranceID);

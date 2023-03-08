@@ -62,7 +62,7 @@ public class InsuranceServiceImp implements InsuranceService{
         List<insuranceTransaction> transactions = insuranceTransactionRepo.findByInsurance_InsuranceID(insuranceId);
         double totalInterest = 0.0;
         for (insuranceTransaction transaction : transactions) {
-            double transactionInterest = (transaction.getAmount() * interestRate) / 100;
+            double transactionInterest = (transaction.getAmount() * interestRate) ;
             totalInterest += transactionInterest;
         }
         return totalInterest;
@@ -73,6 +73,22 @@ public class InsuranceServiceImp implements InsuranceService{
         HashMap<insurance, Double> result = new HashMap<>();
         for (insurance insurance : insurances) {
             List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(insurance.getInsuranceID());
+            double interestRate = insurance.getIntresetRate();
+            double totalInterest = 0.0;
+            for (insuranceTransaction transaction : transactions) {
+                double transactionInterest = (transaction.getAmount() * interestRate);
+                totalInterest += transactionInterest;
+            }
+            result.put(insurance, totalInterest);
+        }
+        return result;
+    }
+    @Override
+    public HashMap<insurance, Double> calculateInterestByinsurance() {
+        List<insurance> insurances = insuranceRepo.findAll();
+        HashMap<insurance, Double> result = new HashMap<>();
+        for (insurance insurance : insurances) {
+            List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceID(insurance.getInsuranceID());
             double interestRate = insurance.getIntresetRate();
             double totalInterest = 0.0;
             for (insuranceTransaction transaction : transactions) {
