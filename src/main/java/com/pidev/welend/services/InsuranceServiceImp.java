@@ -29,12 +29,10 @@ public class InsuranceServiceImp implements InsuranceService{
 
     @Override
     public insurance addInsurance(insurance i) {
-
         return insuranceRepo.save(i);
     }
     public insurance updateInsurance(insurance i)
     {
-
         return insuranceRepo.save(i);
     }
 
@@ -107,9 +105,9 @@ public class InsuranceServiceImp implements InsuranceService{
             insuranceTransaction transaction = new insuranceTransaction();
             transaction.setInsuranceTransactionID(insurance.getInsuranceID());
             transaction.setAmount(transactionAmount);
-            transaction.setTransactionDate(calendar.getTime());
+            transaction.setInsuranceTransactionDate(calendar.getTime());
             transaction.setDescription("Payment : " + i);
-            transaction.setStatusTransaction("PENDING");
+            transaction.setInsuranceTransactionStatus(insuranceTransactionStatus.PENDING);
             insuranceTransactionRepo.save(transaction);
             calendar.add(Calendar.MONTH, 1);
         }
@@ -170,12 +168,12 @@ public class InsuranceServiceImp implements InsuranceService{
                         try {
                             List<insuranceTransaction> insuranceTransactions = insuranceTransactionRepo.findByInsurance_InsuranceID(insurance.getInsuranceID());
                             for (insuranceTransaction insuranceTransaction : insuranceTransactions) {
-                                if (insuranceTransaction != null && sameMonthAndYear(insuranceTransaction.getTransactionDate(), transaction.getTransactionDate())) {
+                                if (insuranceTransaction != null && sameMonthAndYear(insuranceTransaction.getInsuranceTransactionDate(), transaction.getTransactionDate())) {
                                     if (insuranceTransaction.getAmount() == transaction.getAmount()) {
-                                        insuranceTransaction.setStatusTransaction("SETTLED");
+                                        insuranceTransaction.setInsuranceTransactionStatus(insuranceTransactionStatus.SETTLED);
                                         insuranceTransactionRepo.save(insuranceTransaction);
                                     } else if (insuranceTransaction.getAmount() > transaction.getAmount()) {
-                                        insuranceTransaction.setStatusTransaction("NOTFULLYSETTLED");
+                                        insuranceTransaction.setInsuranceTransactionStatus(insuranceTransactionStatus.NOTFULLYSETTELED);
                                         insuranceTransactionRepo.save(insuranceTransaction);
                                     }
                                 }
