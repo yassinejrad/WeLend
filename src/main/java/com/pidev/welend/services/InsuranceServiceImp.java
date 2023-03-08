@@ -55,18 +55,7 @@ public class InsuranceServiceImp implements InsuranceService{
         insuranceRepo.deleteById(insuranceId);
     }
 
-    @Override
-    public double calculateInterest(Integer insuranceId) {
-        insurance insurance = insuranceRepo.findById(insuranceId).orElseThrow(null);
-        double interestRate = insurance.getIntresetRate();
-        List<insuranceTransaction> transactions = insuranceTransactionRepo.findByInsurance_InsuranceID(insuranceId);
-        double totalInterest = 0.0;
-        for (insuranceTransaction transaction : transactions) {
-            double transactionInterest = (transaction.getAmount() * interestRate) ;
-            totalInterest += transactionInterest;
-        }
-        return totalInterest;
-    }
+
     @Override
     public HashMap<insurance, Double> calculateInterestByYear(int year) {
         List<insurance> insurances = insuranceRepo.findAllByEndDate_Year(year);
