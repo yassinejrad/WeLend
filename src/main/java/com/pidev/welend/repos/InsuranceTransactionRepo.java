@@ -8,5 +8,6 @@ import java.util.List;
 public interface InsuranceTransactionRepo extends JpaRepository<insuranceTransaction,Integer> {
 
     List<insuranceTransaction> findByInsurance_InsuranceID(Integer InsuranceID);
+    List<insuranceTransaction> findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(Integer InsuranceID);
 
 }

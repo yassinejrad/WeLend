@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -65,6 +66,22 @@ public class InsuranceServiceImp implements InsuranceService{
             totalInterest += transactionInterest;
         }
         return totalInterest;
+    }
+    @Override
+    public HashMap<insurance, Double> calculateInterestByYear(int year) {
+        List<insurance> insurances = insuranceRepo.findAllByEndDate_Year(year);
+        HashMap<insurance, Double> result = new HashMap<>();
+        for (insurance insurance : insurances) {
+            List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(insurance.getInsuranceID());
+            double interestRate = insurance.getIntresetRate();
+            double totalInterest = 0.0;
+            for (insuranceTransaction transaction : transactions) {
+                double transactionInterest = (transaction.getAmount() * interestRate);
+                totalInterest += transactionInterest;
+            }
+            result.put(insurance, totalInterest);
+        }
+        return result;
     }
     public static Date convertLocalDateToDate(LocalDate localDate) {
         return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());

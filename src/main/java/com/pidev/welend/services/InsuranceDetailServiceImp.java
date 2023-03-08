@@ -41,35 +41,31 @@ public class InsuranceDetailServiceImp implements InsuranceDetailService{
     public HashMap<Integer, Double> calculateAverageAmountSpentOnAccidents(int year) {
         HashMap<Integer, Double> result = new HashMap<>();
         HashMap<Integer, Integer> counts = new HashMap<>();
-        try{
-            List<insuranceDetail> insuranceDetails = getAllInsuranceDetail();
-            for (insuranceDetail detail : insuranceDetails) {
-                if (detail.getAccidentDate().getYear() == year) {
-                    int month = detail.getAccidentDate().getMonth();
-                    double insuredAmount = detail.getInsuredAmount();
-                    if (result.containsKey(month)) {
-                        double totalAmount = result.get(month) + insuredAmount;
-                        int count = counts.getOrDefault(month, 0) + 1;
-                        result.put(month, totalAmount);
-                        counts.put(month, count);
-                    } else {
-                        result.put(month, insuredAmount);
-                        counts.put(month, 1);
-                    }
-                }
-            }
-            for (int month = 1; month <= 12; month++) {
+        List<insuranceDetail> insuranceDetails = getAllInsuranceDetail();
+        for (insuranceDetail detail : insuranceDetails) {
+            if (detail.getAccidentDate().getYear() == year) {
+                int month = detail.getAccidentDate().getMonth();
+                double insuredAmount = detail.getInsuredAmount();
                 if (result.containsKey(month)) {
-                    double totalAmount = result.get(month);
-                    int count = counts.getOrDefault(month, 0);
-                    double averageAmount = (count > 0) ? (totalAmount / count) : 0.0;
-                    result.put(month, averageAmount);
+                    double totalAmount = result.get(month) + insuredAmount;
+                    int count = counts.getOrDefault(month, 0) + 1;
+                    result.put(month, totalAmount);
+                    counts.put(month, count);
                 } else {
-                    result.put(month, 0.0);
+                    result.put(month, insuredAmount);
+                    counts.put(month, 1);
                 }
             }
-        }catch(Exception e){
-            System.out.println("Error while finding insuranceDetail: " + e.getMessage());
+        }
+        for (int month = 1; month <= 12; month++) {
+            if (result.containsKey(month)) {
+                double totalAmount = result.get(month);
+                int count = counts.getOrDefault(month, 0);
+                double averageAmount = (count > 0) ? (totalAmount / count) : 0.0;
+                result.put(month, averageAmount);
+            } else {
+                result.put(month, 0.0);
+            }
         }
         return result;
     }

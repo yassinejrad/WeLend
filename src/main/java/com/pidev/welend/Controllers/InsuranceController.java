@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -39,6 +40,10 @@ public class InsuranceController {
     @GetMapping("/calculateInterest{id}")
     public double calculateInterest(@PathVariable("id") Integer insuranceID){
         return insuranceService.calculateInterest(insuranceID);
+    }
+    @GetMapping("/calculateInterestByYear{id}")
+    public HashMap<insurance, Double> calculateInterestByYear(@PathVariable("id") Integer insuranceID){
+        return insuranceService.calculateInterestByYear(insuranceID);
     }
     @GetMapping("/renewInsurance/{id}")
     public void renewInsurance(@PathVariable("id") Integer insuranceID){
