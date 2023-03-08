@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -35,9 +36,9 @@ public class InsuranceDetailController {
     public insuranceDetail getInsuranceDetailById(@PathVariable("id") Integer insuranceDetailID){
         return insuranceDetailService.getInsuranceDetailById(insuranceDetailID);
     }
-    /*@GetMapping("/getAverageAmountSpent/{month}/{year}")
-    public  double calculateAverageAmountSpentOnAccidents(@PathVariable("month") Integer month,@PathVariable("year") Integer year){
-        return insuranceDetailService.calculateAverageAmountSpentOnAccidents(month,year);
-    }*/
+    @GetMapping("/getAverageAmountSpent/{year}")
+    public HashMap<Integer, Double> calculateAverageAmountSpentOnAccidents(@PathVariable("year") Integer year){
+        return insuranceDetailService.calculateAverageAmountSpentOnAccidents(year);
+    }
 
 }

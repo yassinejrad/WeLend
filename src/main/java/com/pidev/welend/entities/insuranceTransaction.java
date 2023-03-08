@@ -17,8 +17,9 @@ public class insuranceTransaction implements Serializable {
     @Column(name="insuranceTransactionID")
     private Integer insuranceTransactionID;
     private double amount;
-    private Date transactionDate;
+    @Enumerated(EnumType.STRING)
+    private insuranceTransactionStatus insuranceTransactionStatus;
     private String Description;
-    private String statusTransaction;
+    private Date insuranceTransactionDate;
     @ManyToOne insurance insurance;
 }
