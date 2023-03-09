@@ -55,9 +55,8 @@ public class InsuranceServiceImp implements InsuranceService{
         insuranceRepo.deleteById(insuranceId);
     }
 
-
     @Override
-    public HashMap<insurance, Double> calculateInterestByYear(int year) {
+    public HashMap<insurance, Double> calculateInterestByYear(Integer year) {
         List<insurance> insurances = insuranceRepo.findAllByEndDate_Year(year);
         HashMap<insurance, Double> result = new HashMap<>();
         for (insurance insurance : insurances) {
@@ -216,6 +215,7 @@ public class InsuranceServiceImp implements InsuranceService{
             System.out.println("Error while finding accounts: " + e.getMessage());
         }
     }
+
 
 
 }
