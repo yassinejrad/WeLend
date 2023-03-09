@@ -5,6 +5,7 @@ import com.pidev.welend.repos.InsuranceDetailRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,6 +31,11 @@ public class InsuranceDetailServiceImp implements InsuranceDetailService{
     @Override
     public insuranceDetail getInsuranceDetailById(Integer insuranceDetailID) {
         return insuranceDetailRepo.findById(insuranceDetailID).orElse(null);
+    }
+
+    @Override
+    public List<insuranceDetail> getInsuranceDetailByInsuranceID(Integer insuranceID) {
+        return insuranceDetailRepo.findAllByInsurance_InsuranceID(insuranceID);
     }
 
     @Override
@@ -69,5 +75,4 @@ public class InsuranceDetailServiceImp implements InsuranceDetailService{
         }
         return result;
     }
-
 }

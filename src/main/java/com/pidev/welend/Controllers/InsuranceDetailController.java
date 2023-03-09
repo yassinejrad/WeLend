@@ -36,6 +36,10 @@ public class InsuranceDetailController {
     public insuranceDetail getInsuranceDetailById(@PathVariable("id") Integer insuranceDetailID){
         return insuranceDetailService.getInsuranceDetailById(insuranceDetailID);
     }
+    @GetMapping("/getByID/{id}")
+    public List<insuranceDetail> getInsuranceDetailByInsuranceID(@PathVariable("id") Integer insuranceDetailID){
+        return insuranceDetailService.getInsuranceDetailByInsuranceID(insuranceDetailID);
+    }
     @GetMapping("/getAverageAmountSpent/{year}")
     public HashMap<Integer, Double> calculateAverageAmountSpentOnAccidents(@PathVariable("year") Integer year){
         return insuranceDetailService.calculateAverageAmountSpentOnAccidents(year);

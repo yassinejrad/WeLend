@@ -12,7 +12,7 @@ public interface InsuranceService {
     public List<insurance> getAllInsurance();
     public insurance getInsuranceById(Integer insuranceID);
     public void deleteInsurance(Integer insuranceId);
-    public HashMap<insurance, Double> calculateInterestByYear(int year);
+    public HashMap<insurance, Double> calculateInterestByYear(Integer year);
     public HashMap<insurance, Double> calculateInterestByinsurance();
     public void renewInsurance(Integer insuranceID);
     public void createInsuranceAndTransactions(insurance insurance);
