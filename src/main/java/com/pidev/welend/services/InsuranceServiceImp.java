@@ -61,13 +61,20 @@ public class InsuranceServiceImp implements InsuranceService{
     @Override
     public HashMap<insurance, Double> calculateInterestByYear(Integer year) {
         HashMap<insurance, Double> result = new HashMap<>();
+        Calendar calendar = Calendar.getInstance();
         try {
-            List<insurance> insurances = insuranceRepo.findAllByEndDate_Year(year.intValue());
+            List<insurance> insurances = insuranceRepo.findAllByEndDate_Year(year);
             for (insurance insurance : insurances) {
-                List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(insurance.getInsuranceID().intValue(),insurance.getEndDate().getYear());
+                System.out.println(insurance.getInsuranceID());
+                calendar.setTime(insurance.getEndDate());
+                int insuranceYear = calendar.get(Calendar.YEAR);
+                System.out.println(insuranceYear);
+                List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(insurance.getInsuranceID(),insuranceYear);
+                System.out.println("transactionlist "+transactions);
                 double interestRate = insurance.getIntresetRate();
                 double totalInterest = 0.0;
                 for (insuranceTransaction transaction : transactions) {
+                    System.out.println(transaction.getDescription());
                     double transactionInterest = (transaction.getAmount() * interestRate);
                     totalInterest += transactionInterest;
                 }
@@ -76,6 +83,7 @@ public class InsuranceServiceImp implements InsuranceService{
         }catch (Exception e){
             System.out.println("Error while finding insurances : " + e.getMessage());
         }
+        System.out.println(result);
 
         return result;
     }
@@ -115,11 +123,12 @@ public class InsuranceServiceImp implements InsuranceService{
     }
 
     @Override
-    public void createInsuranceAndTransactions(insurance insurance) {
+    public void createInsuranceAndTransactions(insurance insurance,Date date) {
         // Calculate the duration in months
-        int durationInMonths = calculateDurationInMonths(insurance.getStartDate(), insurance.getEndDate());
+        int durationInMonths = calculateDurationInMonths(date, insurance.getEndDate());
 
         // Save the insurance object
+        insurance.setStartDate(date);
         insuranceRepo.save(insurance);
 
         // Calculate the transaction amount
@@ -127,15 +136,18 @@ public class InsuranceServiceImp implements InsuranceService{
 
         // Create a transaction object for each month in the duration
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(insurance.getStartDate());
+        calendar.setTime(date);
+        System.out.println(durationInMonths);
 
         for (int i = 0; i < durationInMonths; i++) {
+            System.out.println(i);
             // Create the transaction object
             insuranceTransaction transaction = new insuranceTransaction();
-            transaction.setInsuranceTransactionID(insurance.getInsuranceID());
+            transaction.setInsurance(insurance);
             transaction.setAmount(transactionAmount);
             transaction.setInsuranceTransactionDate(calendar.getTime());
-            transaction.setDescription("Payment : " + i);
+            int j=i+1;
+            transaction.setDescription("Payment N : " + j +" For the insurance " + insurance.getInsuranceType().getName());
             transaction.setInsuranceTransactionStatus(insuranceTransactionStatus.PENDING);
             insuranceTransactionRepo.save(transaction);
             calendar.add(Calendar.MONTH, 1);
@@ -158,13 +170,15 @@ public class InsuranceServiceImp implements InsuranceService{
 
             }
 
+
+            insurance.setIntresetRate(interestRate);
+            insurance.setRenewalCount(renewalCount);
+            System.out.println(currentDate);
             Date endDate = convertLocalDateToDate(LocalDate.now().plusYears(1));
             insurance.setEndDate(endDate);
             Date datetest=insurance.getEndDate();
             System.out.println(datetest);
-            insurance.setIntresetRate(interestRate);
-            insurance.setRenewalCount(renewalCount);
-            createInsuranceAndTransactions(insurance);
+            createInsuranceAndTransactions(insurance,currentDate);
 
             System.out.println("Insurance renewed successfully with an interest rate of " + interestRate
                     + " and an end date of " + endDate + ". Original interest rate was " + originalInterestRate + ".");
@@ -183,41 +197,40 @@ public class InsuranceServiceImp implements InsuranceService{
 
         return (month1 == month2 && year1 == year2);
     }
-    @Scheduled(cron = "* * * * * *")
+    //@Scheduled(cron = "* * * * * *")
     public void checkInsuranceTransactionPayments() {
-       /* List<Account> accounts1 = accountRepo.findAll();
-        for (Account account : accounts1){
-            System.out.println(account.getAccountID());
-        }*/
         try {
         List<Account> accounts = accountRepo.findAll();
         for (Account account : accounts) {
             try {
-            List<Transaction> transactions = transactionRepo.findTransactionByAccount_AccountID(account.getAccountID());
-            List<insurance> insurances = insuranceRepo.findByAccount_AccountID(account.getAccountID());
-            for (Transaction transaction : transactions) {
-                if (transaction.getTransactionType() == transactionType.INSURANCEPAYMENT) {
-                    for (insurance insurance : insurances){
-                        try {
-                            List<insuranceTransaction> insuranceTransactions = insuranceTransactionRepo.findByInsurance_InsuranceID(insurance.getInsuranceID());
-                            for (insuranceTransaction insuranceTransaction : insuranceTransactions) {
-                                if (insuranceTransaction != null && sameMonthAndYear(insuranceTransaction.getInsuranceTransactionDate(), transaction.getTransactionDate())) {
-                                    if (insuranceTransaction.getAmount() == transaction.getAmount()) {
-                                        insuranceTransaction.setInsuranceTransactionStatus(insuranceTransactionStatus.SETTLED);
-                                        insuranceTransactionRepo.save(insuranceTransaction);
-                                    } else if (insuranceTransaction.getAmount() > transaction.getAmount()) {
-                                        insuranceTransaction.setInsuranceTransactionStatus(insuranceTransactionStatus.NOTFULLYSETTELED);
-                                        insuranceTransactionRepo.save(insuranceTransaction);
+                System.out.println(account.getAccountID());
+                List<Transaction> transactions = transactionRepo.findTransactionByAccount_AccountID(account.getAccountID());
+                List<insurance> insurances = insuranceRepo.findByAccount_AccountID(account.getAccountID());
+                for (Transaction transaction : transactions) {
+                    if (transaction.getTransactionType() == transactionType.INSURANCEPAYMENT) {
+                        for (insurance insurance : insurances){
+                            try {
+                                List<insuranceTransaction> insuranceTransactions = insuranceTransactionRepo.findByInsurance_InsuranceID(insurance.getInsuranceID());
+                                for (insuranceTransaction insuranceTransaction : insuranceTransactions) {
+                                    if ( sameMonthAndYear(insuranceTransaction.getInsuranceTransactionDate(), transaction.getTransactionDate())) {
+                                        System.out.println(insuranceTransaction.getInsuranceTransactionID()+" STATUS "+insuranceTransaction.getInsuranceTransactionStatus());
+                                        if (insuranceTransaction.getAmount() < transaction.getAmount()) {
+                                            insuranceTransaction.setInsuranceTransactionStatus(insuranceTransactionStatus.SETTLED);
+                                            insuranceTransactionRepo.save(insuranceTransaction);
+                                            System.out.println(insuranceTransaction.getInsuranceTransactionID()+" STATUS "+insuranceTransaction.getInsuranceTransactionStatus());
+                                        } else if (insuranceTransaction.getAmount() > transaction.getAmount()) {
+                                            insuranceTransaction.setInsuranceTransactionStatus(insuranceTransactionStatus.NOTFULLYSETTELED);
+                                            insuranceTransactionRepo.save(insuranceTransaction);
+                                        }
                                     }
                                 }
-                            }
-                        }catch (Exception e){
-                            System.out.println("Error while finding insurancesTransactions: " + e.getMessage());
+                            }catch (Exception e){
+                                System.out.println("Error while finding insurancesTransactions: " + e.getMessage());
 
+                            }
                         }
                     }
                 }
-            }
             }catch (Exception e){
                 System.out.println("Error while finding insurances or transactions: " + e.getMessage());
 

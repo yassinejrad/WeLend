@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,9 +38,9 @@ public class InsuranceController {
     public insurance getInsuranceById(@PathVariable("id") Integer insuranceID){
         return insuranceService.getInsuranceById(insuranceID);
     }
-    @GetMapping("/calculateInterestByYear{id}")
-    public HashMap<insurance, Double> calculateInterestByYear(@PathVariable("id") Integer insuranceID){
-        return insuranceService.calculateInterestByYear(insuranceID);
+    @GetMapping("/calculateInterestByYear/{year}")
+    public HashMap<insurance, Double> calculateInterestByYear(@PathVariable("year") Integer year){
+        return insuranceService.calculateInterestByYear(year);
     }
     @GetMapping("/calculateInterestByInsurance")
     public HashMap<insurance, Double> calculateInterestByInsurance(){
@@ -49,8 +50,8 @@ public class InsuranceController {
     public void renewInsurance(@PathVariable("id") Integer insuranceID){
          insuranceService.renewInsurance(insuranceID);
     }
-    @PostMapping("/addInsuranceAndTransaction")
-    public void createInsuranceAndTransactions(@RequestBody insurance i){
-         insuranceService.createInsuranceAndTransactions(i);
+    @PostMapping("/addInsuranceAndTransaction/{date}")
+    public void createInsuranceAndTransactions(@RequestBody insurance i, @PathVariable("date")Date date){
+         insuranceService.createInsuranceAndTransactions(i,date);
     }
 }

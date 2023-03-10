@@ -1,5 +1,6 @@
 package com.pidev.welend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table( name = "Insurance")
+@JsonIgnoreProperties({"insuranceTransactions", "insuranceDetails"})
 public class insurance implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
