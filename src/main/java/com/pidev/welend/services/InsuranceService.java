@@ -3,6 +3,7 @@ package com.pidev.welend.services;
 
 import com.pidev.welend.entities.insurance;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,6 @@ public interface InsuranceService {
     public HashMap<insurance, Double> calculateInterestByYear(Integer year);
     public HashMap<insurance, Double> calculateInterestByinsurance();
     public void renewInsurance(Integer insuranceID);
-    public void createInsuranceAndTransactions(insurance insurance);
+    public void createInsuranceAndTransactions(insurance insurance, Date date);
 
 }

@@ -14,7 +14,7 @@ public interface InsuranceTransactionRepo extends JpaRepository<insuranceTransac
     List<insuranceTransaction> findAllByInsurance_InsuranceID(Integer InsuranceID);
     //List<insuranceTransaction> findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(int insuranceId, int year);
     @Query(value = "SELECT * FROM insurance_transaction " +
-            "WHERE insurance_id = ?1 " +
+            "WHERE insurance_transactionid = ?1 " +
             "AND YEAR(insurance_transaction_date) = ?2", nativeQuery = true)
     List<insuranceTransaction> findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(int insuranceId, int year);
 
