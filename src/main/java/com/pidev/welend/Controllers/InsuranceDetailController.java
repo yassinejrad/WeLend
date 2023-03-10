@@ -36,7 +36,7 @@ public class InsuranceDetailController {
     public insuranceDetail getInsuranceDetailById(@PathVariable("id") Integer insuranceDetailID){
         return insuranceDetailService.getInsuranceDetailById(insuranceDetailID);
     }
-    @GetMapping("/getByID/{id}")
+    @GetMapping("/getByInsuranceID/{id}")
     public List<insuranceDetail> getInsuranceDetailByInsuranceID(@PathVariable("id") Integer insuranceDetailID){
         return insuranceDetailService.getInsuranceDetailByInsuranceID(insuranceDetailID);
     }
