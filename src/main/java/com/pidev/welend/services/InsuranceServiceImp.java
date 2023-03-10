@@ -24,8 +24,11 @@ public class InsuranceServiceImp implements InsuranceService{
 
     @Autowired
     InsuranceRepo insuranceRepo;
+    @Autowired
     InsuranceTransactionRepo insuranceTransactionRepo;
+    @Autowired
     AccountRepo accountRepo;
+    @Autowired
     TransactionRepo transactionRepo;
 
     @Override
@@ -182,6 +185,10 @@ public class InsuranceServiceImp implements InsuranceService{
     }
     @Scheduled(cron = "* * * * * *")
     public void checkInsuranceTransactionPayments() {
+       /* List<Account> accounts1 = accountRepo.findAll();
+        for (Account account : accounts1){
+            System.out.println(account.getAccountID());
+        }*/
         try {
         List<Account> accounts = accountRepo.findAll();
         for (Account account : accounts) {
