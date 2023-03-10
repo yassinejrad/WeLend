@@ -57,18 +57,23 @@ public class InsuranceServiceImp implements InsuranceService{
 
     @Override
     public HashMap<insurance, Double> calculateInterestByYear(Integer year) {
-        List<insurance> insurances = insuranceRepo.findAllByEndDate_Year(year);
         HashMap<insurance, Double> result = new HashMap<>();
-        for (insurance insurance : insurances) {
-            List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(insurance.getInsuranceID());
-            double interestRate = insurance.getIntresetRate();
-            double totalInterest = 0.0;
-            for (insuranceTransaction transaction : transactions) {
-                double transactionInterest = (transaction.getAmount() * interestRate);
-                totalInterest += transactionInterest;
+        try {
+            List<insurance> insurances = insuranceRepo.findAllByEndDate_Year(year.intValue());
+            for (insurance insurance : insurances) {
+                List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(insurance.getInsuranceID().intValue(),insurance.getEndDate().getYear());
+                double interestRate = insurance.getIntresetRate();
+                double totalInterest = 0.0;
+                for (insuranceTransaction transaction : transactions) {
+                    double transactionInterest = (transaction.getAmount() * interestRate);
+                    totalInterest += transactionInterest;
+                }
+                result.put(insurance, totalInterest);
             }
-            result.put(insurance, totalInterest);
+        }catch (Exception e){
+            System.out.println("Error while finding insurances : " + e.getMessage());
         }
+
         return result;
     }
     @Override
