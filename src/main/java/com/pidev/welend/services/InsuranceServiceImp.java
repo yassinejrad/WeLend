@@ -57,18 +57,22 @@ public class InsuranceServiceImp implements InsuranceService{
 
         insuranceRepo.deleteById(insuranceId);
     }
-
     @Override
-    public HashMap<insurance, Double> calculateInterestByYear(Integer year) {
-        HashMap<insurance, Double> result = new HashMap<>();
+    public List<insurance> getAllInsurancesByAccountID(Integer accountID){
+        return insuranceRepo.findAllByAccount_AccountID(accountID);
+    }
+    @Override
+    public HashMap<String, Double> calculateInterestByYear(Integer year) {
+        HashMap<String, Double> result = new HashMap<>();
         Calendar calendar = Calendar.getInstance();
         try {
-            List<insurance> insurances = insuranceRepo.findAllByEndDate_Year(year);
+            List<insurance> insurances = insuranceRepo.findAll();
             for (insurance insurance : insurances) {
                 System.out.println(insurance.getInsuranceID());
                 calendar.setTime(insurance.getEndDate());
                 int insuranceYear = calendar.get(Calendar.YEAR);
                 System.out.println(insuranceYear);
+                System.out.println(insurance.getInsuranceID());
                 List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(insurance.getInsuranceID(),insuranceYear);
                 System.out.println("transactionlist "+transactions);
                 double interestRate = insurance.getIntresetRate();
@@ -78,7 +82,7 @@ public class InsuranceServiceImp implements InsuranceService{
                     double transactionInterest = (transaction.getAmount() * interestRate);
                     totalInterest += transactionInterest;
                 }
-                result.put(insurance, totalInterest);
+                result.put("Insurance N : "+insurance.getInsuranceID()+" Type : "+insurance.getInsuranceType().getName(), totalInterest);
             }
         }catch (Exception e){
             System.out.println("Error while finding insurances : " + e.getMessage());
@@ -88,9 +92,9 @@ public class InsuranceServiceImp implements InsuranceService{
         return result;
     }
     @Override
-    public HashMap<insurance, Double> calculateInterestByinsurance() {
+    public HashMap<String, Double> calculateInterestByinsurance() {
         List<insurance> insurances = insuranceRepo.findAll();
-        HashMap<insurance, Double> result = new HashMap<>();
+        HashMap<String, Double> result = new HashMap<>();
         for (insurance insurance : insurances) {
             List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceID(insurance.getInsuranceID());
             double interestRate = insurance.getIntresetRate();
@@ -99,7 +103,7 @@ public class InsuranceServiceImp implements InsuranceService{
                 double transactionInterest = (transaction.getAmount() * interestRate);
                 totalInterest += transactionInterest;
             }
-            result.put(insurance, totalInterest);
+            result.put("Insurance N : "+insurance.getInsuranceID()+" Type : "+insurance.getInsuranceType().getName(), totalInterest);
         }
         return result;
     }
@@ -205,12 +209,12 @@ public class InsuranceServiceImp implements InsuranceService{
             try {
                 System.out.println(account.getAccountID());
                 List<Transaction> transactions = transactionRepo.findTransactionByAccount_AccountID(account.getAccountID());
-                List<insurance> insurances = insuranceRepo.findByAccount_AccountID(account.getAccountID());
+                List<insurance> insurances = insuranceRepo.findAllByAccount_AccountID(account.getAccountID());
                 for (Transaction transaction : transactions) {
                     if (transaction.getTransactionType() == transactionType.INSURANCEPAYMENT) {
                         for (insurance insurance : insurances){
                             try {
-                                List<insuranceTransaction> insuranceTransactions = insuranceTransactionRepo.findByInsurance_InsuranceID(insurance.getInsuranceID());
+                                List<insuranceTransaction> insuranceTransactions = insuranceTransactionRepo.findAllByInsurance_InsuranceID(insurance.getInsuranceID());
                                 for (insuranceTransaction insuranceTransaction : insuranceTransactions) {
                                     if ( sameMonthAndYear(insuranceTransaction.getInsuranceTransactionDate(), transaction.getTransactionDate())) {
                                         System.out.println(insuranceTransaction.getInsuranceTransactionID()+" STATUS "+insuranceTransaction.getInsuranceTransactionStatus());
