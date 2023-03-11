@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table( name = "Account")
-@JsonIgnoreProperties("insurances")
+@JsonIgnoreProperties({"insurances", "transactions","notifications"})
 public class Account implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
