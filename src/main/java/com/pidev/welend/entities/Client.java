@@ -25,6 +25,7 @@ public class Client implements Serializable {
     private Date birthDate;
     private long phoneNum;
     private String adress;
+    @Column(unique = true)
     private String email;
     private String employement;
     private Float income;
