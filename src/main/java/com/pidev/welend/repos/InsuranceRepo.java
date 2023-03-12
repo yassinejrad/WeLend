@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface InsuranceRepo extends JpaRepository<insurance,Integer> {
     List<insurance> findByAccount_AccountID(Integer accountID);
+    List<insurance> findAllByAccount_AccountID(Integer accountID);
     //List<insurance> findAllByEndDate_Year(int year);
     @Query(value = "SELECT * FROM insurance WHERE YEAR(end_date) = :year", nativeQuery = true)
     List<insurance> findAllByEndDate_Year(@Param("year") int year);

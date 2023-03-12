@@ -1,4 +1,4 @@
-package com.pidev.welend.Controllers;
+package com.pidev.welend.controllers;
 
 import com.pidev.welend.entities.Agent;
 import com.pidev.welend.entities.Users;

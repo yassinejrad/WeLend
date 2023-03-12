@@ -1,5 +1,7 @@
 package com.pidev.welend.services;
 
+
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.pidev.welend.entities.insurance;
 import com.pidev.welend.entities.insuranceTransaction;
 import com.pidev.welend.entities.insuranceTransactionStatus;
@@ -9,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
+
 
 @Service
 public class InsuranceTransactionServiceImp implements InsuranceTransactionService{
@@ -49,23 +51,75 @@ public class InsuranceTransactionServiceImp implements InsuranceTransactionServi
 
     @Override
     public List<insuranceTransaction> getInsuranceTransactionByInsuranceID(Integer insuranceID) {
-        return insuranceTransactionRepo.findByInsurance_InsuranceID(insuranceID);
+        return insuranceTransactionRepo.findAllByInsurance_InsuranceID(insuranceID);
     }
     @Override
-    public HashMap<insuranceTransaction, Integer> checkAllUnpaidInsuranceTransactionByYear(Integer insuranceID){
-        HashMap<insuranceTransaction, Integer> result = new HashMap<>();
+    public HashMap<insuranceTransaction, String> checkAllUnpaidInsuranceTransactionByYear(Integer insuranceID,Integer year){
+        HashMap<insuranceTransaction, String> result = new HashMap<>();
         insurance insurance=insuranceRepo.findById(insuranceID).orElse(null);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(insurance.getEndDate());
+        int insuranceMonth = calendar.get(Calendar.MONTH);
         try {
-            List<insuranceTransaction> insuranceTransactions = insuranceTransactionRepo.findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(insuranceID.intValue(),insurance.getEndDate().getYear());
+            List<insuranceTransaction> insuranceTransactions = insuranceTransactionRepo.findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(insuranceID,year);
             for (insuranceTransaction insuranceTransaction : insuranceTransactions){
                 if (insuranceTransaction.getInsuranceTransactionStatus() == insuranceTransactionStatus.PENDING){
-                    result.put(insuranceTransaction,insuranceTransaction.getInsuranceTransactionDate().getMonth());
+                    result.put(insuranceTransaction,insuranceMonth+"/"+year);
                 }
             }
         }catch (Exception e){
             System.out.println("Error while finding insurancesTransactions: " + e.getMessage());
         }
 
+        return result;
+    }
+
+    @Override
+    public List<insuranceTransaction> getAllInsuranceTransactionPendingByInsurance(Integer insuranceID) {
+        List<insuranceTransaction> result = new ArrayList<>();
+        try {
+            List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceID(insuranceID);
+            for (insuranceTransaction transaction : transactions) {
+                if (transaction.getInsuranceTransactionStatus() == insuranceTransactionStatus.PENDING) {
+                    result.add(transaction);
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Error while finding insurancesTransactions: " + e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public List<insuranceTransaction> getAllInsuranceTransactionNotfullysetteledByInsurance(Integer insuranceID) {
+        List<insuranceTransaction> result = new ArrayList<>();
+        try {
+            List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceID(insuranceID);
+            for (insuranceTransaction transaction : transactions) {
+                if (transaction.getInsuranceTransactionStatus() == insuranceTransactionStatus.NOTFULLYSETTELED) {
+                    result.add(transaction);
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Error while finding insurancesTransactions: " + e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public List<insuranceTransaction> getAllInsuranceTransactionSettledByInsurance(Integer insuranceID) {
+        List<insuranceTransaction> result = new ArrayList<>();
+        try {
+            List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceID(insuranceID);
+
+            for (insuranceTransaction transaction : transactions) {
+                if (transaction.getInsuranceTransactionStatus() == insuranceTransactionStatus.SETTLED) {
+                    result.add(transaction);
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Error while finding insurancesTransactions: " + e.getMessage());
+        }
         return result;
     }
 
