@@ -1,9 +1,14 @@
 package com.pidev.welend.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 @Table( name = "Agent")
 public class Agent implements Serializable {
@@ -15,6 +20,7 @@ public class Agent implements Serializable {
     private Date birthDate;
     private long phoneNum;
     private String adress;
+    @Column(unique = true)
     private String email;
     private Float expenses;
     private String pwd;

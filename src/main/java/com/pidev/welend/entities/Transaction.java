@@ -1,9 +1,14 @@
 package com.pidev.welend.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 @Table( name = "Transaction")
 public class Transaction implements Serializable {
@@ -19,7 +24,7 @@ public class Transaction implements Serializable {
     private transactionStatus transactionStatus;
     @Enumerated(EnumType.STRING)
     private  transactionMethod transactionMethod;
-    private String transactionPurpuse;
+    private String transactionPurpose;
     private float exchangeRate;
     private float amount;
     private String currency;

@@ -5,6 +5,8 @@ import com.pidev.welend.repos.InsuranceDetailRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -32,8 +34,45 @@ public class InsuranceDetailServiceImp implements InsuranceDetailService{
     }
 
     @Override
+    public List<insuranceDetail> getInsuranceDetailByInsuranceID(Integer insuranceID) {
+        return insuranceDetailRepo.findAllByInsurance_InsuranceID(insuranceID);
+    }
+
+    @Override
     public void deleteInsuranceDetail(Integer insuranceDetailID) {
         insuranceDetailRepo.deleteById(insuranceDetailID);
 
+    }
+    @Override
+    public HashMap<Integer, Double> calculateAverageAmountSpentOnAccidents(int year) {
+        HashMap<Integer, Double> result = new HashMap<>();
+        HashMap<Integer, Integer> counts = new HashMap<>();
+        List<insuranceDetail> insuranceDetails = getAllInsuranceDetail();
+        for (insuranceDetail detail : insuranceDetails) {
+            if (detail.getAccidentDate().getYear() == year) {
+                int month = detail.getAccidentDate().getMonth();
+                double insuredAmount = detail.getInsuredAmount();
+                if (result.containsKey(month)) {
+                    double totalAmount = result.get(month) + insuredAmount;
+                    int count = counts.getOrDefault(month, 0) + 1;
+                    result.put(month, totalAmount);
+                    counts.put(month, count);
+                } else {
+                    result.put(month, insuredAmount);
+                    counts.put(month, 1);
+                }
+            }
+        }
+        for (int month = 1; month <= 12; month++) {
+            if (result.containsKey(month)) {
+                double totalAmount = result.get(month);
+                int count = counts.getOrDefault(month, 0);
+                double averageAmount = (count > 0) ? (totalAmount / count) : 0.0;
+                result.put(month, averageAmount);
+            } else {
+                result.put(month, 0.0);
+            }
+        }
+        return result;
     }
 }

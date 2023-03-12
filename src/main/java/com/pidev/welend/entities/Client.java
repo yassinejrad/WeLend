@@ -2,13 +2,20 @@ package com.pidev.welend.entities;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table( name = "Client")
+@JsonIgnoreProperties("accounts")
 public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +25,7 @@ public class Client implements Serializable {
     private Date birthDate;
     private long phoneNum;
     private String adress;
+    @Column(unique = true)
     private String email;
     private String employement;
     private Float income;
