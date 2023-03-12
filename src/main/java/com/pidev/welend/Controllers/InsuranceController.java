@@ -48,6 +48,7 @@ public class InsuranceController {
     }
     @GetMapping("/calculateInterestByInsurance")
     public HashMap<String, Double> calculateInterestByInsurance(){
+
         return insuranceService.calculateInterestByinsurance();
     }
     @GetMapping("/renewInsurance/{id}")

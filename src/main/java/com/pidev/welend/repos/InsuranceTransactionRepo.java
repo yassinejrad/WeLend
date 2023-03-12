@@ -17,7 +17,4 @@ public interface InsuranceTransactionRepo extends JpaRepository<insuranceTransac
             "WHERE insurance_insuranceid = ?1 " +
             "AND YEAR(insurance_transaction_date) = ?2", nativeQuery = true)
     List<insuranceTransaction> findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(int insuranceId, int year);
-
-
-
 }

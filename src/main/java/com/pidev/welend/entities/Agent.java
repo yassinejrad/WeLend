@@ -20,6 +20,7 @@ public class Agent implements Serializable {
     private Date birthDate;
     private long phoneNum;
     private String adress;
+    @Column(unique = true)
     private String email;
     private Float expenses;
     private String pwd;
