@@ -120,5 +120,10 @@ public class InsuranceTransactionServiceImp implements InsuranceTransactionServi
         return result;
     }
 
+    @Override
+    public List<insuranceTransaction> getAllInsuranceTransactionByAcountID(Integer accountID) {
+        return insuranceTransactionRepo.findAllByInsurance_Account_AccountID(accountID);
+    }
+
 
 }

@@ -79,4 +79,9 @@ public class InsuranceDetailServiceImp implements InsuranceDetailService{
         }
         return result;
     }
+
+    @Override
+    public List<insuranceDetail> getAllInsuranceDetailByAcountID(Integer accountID) {
+        return insuranceDetailRepo.findAllByInsurance_Account_AccountID(accountID);
+    }
 }

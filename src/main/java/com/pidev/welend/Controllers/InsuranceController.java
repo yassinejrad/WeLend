@@ -58,4 +58,8 @@ public class InsuranceController {
     public void createInsuranceAndTransactions(@RequestBody insurance i, @PathVariable("date")Date date){
          insuranceService.createInsuranceAndTransactions(i,date);
     }
+    @GetMapping("/calculateInterestByinsuranceType")
+    public HashMap<String, Double> calculateInterestByinsuranceType(){
+        return insuranceService.calculateInterestByinsuranceType();
+    }
 }
