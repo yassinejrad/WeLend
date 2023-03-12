@@ -17,4 +17,5 @@ public interface InsuranceTransactionService {
     List<insuranceTransaction> getAllInsuranceTransactionPendingByInsurance(Integer insuranceID);
     List<insuranceTransaction> getAllInsuranceTransactionNotfullysetteledByInsurance(Integer insuranceID);
     List<insuranceTransaction> getAllInsuranceTransactionSettledByInsurance(Integer insuranceID);
+    List<insuranceTransaction> getAllInsuranceTransactionByAcountID(Integer accountID);
 }

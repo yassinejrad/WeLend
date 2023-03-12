@@ -56,4 +56,8 @@ public class InsuranceTransactionController {
     public List<insuranceTransaction> getAllInsuranceTransactionSettledByInsurance(@PathVariable("insuranceID") Integer insuranceID){
         return insuranceTransactionService.getAllInsuranceTransactionSettledByInsurance(insuranceID);
     }
+    @GetMapping("/getAllInsuranceTransactionByAccountID/{accountID}")
+    public List<insuranceTransaction> getAllInsuranceTransactionByAccountID(@PathVariable("accountID") Integer accountID){
+        return insuranceTransactionService.getAllInsuranceTransactionByAcountID(accountID);
+    }
 }

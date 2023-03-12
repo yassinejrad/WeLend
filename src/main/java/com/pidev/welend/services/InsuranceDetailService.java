@@ -2,6 +2,7 @@ package com.pidev.welend.services;
 
 
 import com.pidev.welend.entities.insuranceDetail;
+import com.pidev.welend.entities.insuranceTransaction;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -15,4 +16,5 @@ public interface InsuranceDetailService {
     public List<insuranceDetail> getInsuranceDetailByInsuranceID(Integer insuranceID);
     public void deleteInsuranceDetail(Integer insuranceDetailID);
     public HashMap<Integer, Double> calculateAverageAmountSpentOnAccidents(int year);
+    public List<insuranceDetail> getAllInsuranceDetailByAcountID(Integer accountID);
 }

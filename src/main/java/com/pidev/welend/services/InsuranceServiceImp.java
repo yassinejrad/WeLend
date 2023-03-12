@@ -13,10 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -251,7 +249,30 @@ public class InsuranceServiceImp implements InsuranceService{
             System.out.println("Error while finding accounts: " + e.getMessage());
         }
     }
-
+    @Override
+    public HashMap<String, Double> calculateInterestByinsuranceType() {
+        List<insurance> insurances = insuranceRepo.findAll();
+        List<String> insuranceTypeName = insurances.stream()
+                    .map(insurance -> insurance.getInsuranceType().getName())
+                    .distinct()
+                    .collect(Collectors.toList());
+        HashMap<String, Double> result = new HashMap<>();
+        for (String insuranceType : insuranceTypeName){
+            double totalInterest = 0.0;
+            for (insurance insurance : insurances) {
+                if (Objects.equals(insurance.getInsuranceType().getName(), insuranceType)){
+                    List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceID(insurance.getInsuranceID());
+                    double interestRate = insurance.getIntresetRate();
+                    for (insuranceTransaction transaction : transactions) {
+                        double transactionInterest = (transaction.getAmount() * interestRate);
+                        totalInterest += transactionInterest;
+                    }
+                }
+            }
+            result.put(insuranceType, totalInterest);
+        }
+        return result;
+    }
 
 
 }
