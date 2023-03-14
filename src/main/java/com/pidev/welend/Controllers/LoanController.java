@@ -45,7 +45,6 @@ public class LoanController {
     public double calculateInterest(@RequestBody Loan loan) {
         return loanService.calculateInterest(loan);
     }
-
     @PostMapping("/generate_payment_schedule")
     public List<LoanTransaction> generatePaymentSchedule(@RequestBody Loan loan) {
         return loanService.generatePaymentSchedule(loan);
