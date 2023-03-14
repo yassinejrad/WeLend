@@ -21,17 +21,15 @@ import java.util.Set;
 public class Loan implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="LoanID")
-    private Integer LoanID;
-    private Integer LoanNumber;
-    private double LoanAmount;
-    private LoanStatus Status;
-    private float InterestRate;
+    @Column(name="loanID")
+    private Integer loanID;
+    private Integer loanNumber;
+    private double loanAmount;
+    //private LoanStatus Status;
+    private float interestRate;
     private int durationInMonths;
-    private String Collaterals;
+    private String collaterals;
     //List<LoanTransaction> RepaymentSchedule;
-
-
 
 
 
@@ -42,7 +40,7 @@ public class Loan implements Serializable {
     Account account;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="loan")
-    private Set<LoanTransaction> LoanTransactions;
+    private Set<LoanTransaction> loanTransactions;
 
     public LoanType getLoanType() {
         return loanType;
@@ -54,5 +52,7 @@ public class Loan implements Serializable {
 
     @OneToOne
     private LoanType loanType;
+    @ManyToOne
+    Client client;
 
 }

@@ -20,11 +20,11 @@ import java.util.Date;
 public class LoanType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="LoanTypeID")
-    private Integer LoanTypeID;
-    private String LoanTypeName;
-    private Duration duration;
-    private Float Value;
+    @Column(name="loanTypeID")
+    private Integer loanTypeID;
+    private String loanTypeName;
+   // private Duration duration;
+    private Float value;
 
     @Enumerated(EnumType.STRING)
     private LoanTerm LoanTerm;
