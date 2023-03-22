@@ -39,6 +39,7 @@ public class InsuranceTransactionController {
     public List<insuranceTransaction> getInsuranceTransactionByInsuranceID(@PathVariable("id") Integer insuranceID){
         return insuranceTransactionService.getInsuranceTransactionByInsuranceID(insuranceID);
     }
+
     @GetMapping("/checkAllUnpaidInsuranceTransactionByYear/{id}/{year}")
     public HashMap<insuranceTransaction, String> checkAllUnpaidInsuranceTransactionByYear(@PathVariable("id") Integer insuranceID,@PathVariable("year") Integer year){
         return insuranceTransactionService.checkAllUnpaidInsuranceTransactionByYear(insuranceID,year);

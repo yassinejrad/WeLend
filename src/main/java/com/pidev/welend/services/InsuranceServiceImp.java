@@ -57,6 +57,7 @@ public class InsuranceServiceImp implements InsuranceService{
 
         insuranceRepo.deleteById(insuranceId);
     }
+
     @Override
     public List<insurance> getAllInsurancesByAccountID(Integer accountID){
         return insuranceRepo.findAllByAccount_AccountID(accountID);
@@ -72,7 +73,9 @@ public class InsuranceServiceImp implements InsuranceService{
                 calendar.setTime(insurance.getEndDate());
                 int insuranceYear = calendar.get(Calendar.YEAR);
                 System.out.println(insuranceYear);
+
                 System.out.println(insurance.getInsuranceID());
+
                 List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(insurance.getInsuranceID(),insuranceYear);
                 System.out.println("transactionlist "+transactions);
                 double interestRate = insurance.getIntresetRate();
@@ -92,9 +95,11 @@ public class InsuranceServiceImp implements InsuranceService{
         return result;
     }
     @Override
+
     public HashMap<String, Double> calculateInterestByinsurance() {
         List<insurance> insurances = insuranceRepo.findAll();
         HashMap<String, Double> result = new HashMap<>();
+
         for (insurance insurance : insurances) {
             List<insuranceTransaction> transactions = insuranceTransactionRepo.findAllByInsurance_InsuranceID(insurance.getInsuranceID());
             double interestRate = insurance.getIntresetRate();
@@ -104,6 +109,7 @@ public class InsuranceServiceImp implements InsuranceService{
                 totalInterest += transactionInterest;
             }
             result.put("Insurance N : "+insurance.getInsuranceID()+" Type : "+insurance.getInsuranceType().getName(), totalInterest);
+
         }
         return result;
     }
@@ -211,6 +217,7 @@ public class InsuranceServiceImp implements InsuranceService{
                 System.out.println(account.getAccountID());
                 List<Transaction> transactions = transactionRepo.findTransactionByAccount_AccountID(account.getAccountID());
                 List<insurance> insurances = insuranceRepo.findAllByAccount_AccountID(account.getAccountID());
+
                 for (Transaction transaction : transactions) {
                     if (transaction.getTransactionType() == transactionType.INSURANCEPAYMENT) {
                         for (insurance insurance : insurances){
