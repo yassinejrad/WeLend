@@ -1,6 +1,7 @@
 package com.pidev.welend.Controllers;
 
 
+import com.pidev.welend.entities.insuranceTransaction;
 import com.pidev.welend.entities.insuranceType;
 import com.pidev.welend.services.InsuranceTypeService;
 import lombok.AllArgsConstructor;
@@ -35,5 +36,6 @@ public class InsuranceTypeController {
     public insuranceType getInsuranceTypeById(@PathVariable("id") Integer insuranceID){
         return insuranceTypeService.getInsuranceTypeById(insuranceID);
     }
+
 
 }

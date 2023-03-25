@@ -38,12 +38,17 @@ public class InsuranceController {
     public insurance getInsuranceById(@PathVariable("id") Integer insuranceID){
         return insuranceService.getInsuranceById(insuranceID);
     }
+    @GetMapping("/getAllInsurancesByAccountID/{accountID}")
+    public List<insurance> getAllInsurancesByAccountID(@PathVariable("accountID") Integer accountID){
+        return insuranceService.getAllInsurancesByAccountID(accountID);
+    }
     @GetMapping("/calculateInterestByYear/{year}")
-    public HashMap<insurance, Double> calculateInterestByYear(@PathVariable("year") Integer year){
+    public HashMap<String, Double> calculateInterestByYear(@PathVariable("year") Integer year){
         return insuranceService.calculateInterestByYear(year);
     }
     @GetMapping("/calculateInterestByInsurance")
-    public HashMap<insurance, Double> calculateInterestByInsurance(){
+    public HashMap<String, Double> calculateInterestByInsurance(){
+
         return insuranceService.calculateInterestByinsurance();
     }
     @GetMapping("/renewInsurance/{id}")
@@ -53,5 +58,9 @@ public class InsuranceController {
     @PostMapping("/addInsuranceAndTransaction/{date}")
     public void createInsuranceAndTransactions(@RequestBody insurance i, @PathVariable("date")Date date){
          insuranceService.createInsuranceAndTransactions(i,date);
+    }
+    @GetMapping("/calculateInterestByinsuranceType")
+    public HashMap<String, Double> calculateInterestByinsuranceType(){
+        return insuranceService.calculateInterestByinsuranceType();
     }
 }

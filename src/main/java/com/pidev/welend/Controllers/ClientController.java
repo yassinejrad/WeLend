@@ -2,6 +2,7 @@ package com.pidev.welend.Controllers;
 
 import com.pidev.welend.entities.Client;
 import com.pidev.welend.entities.Users;
+import com.pidev.welend.entities.UsersType;
 import com.pidev.welend.services.ClientService;
 import com.pidev.welend.services.UsersService;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class ClientController {
         Users user = new Users();
         user.setEmail(c.getEmail());
         user.setPwd(c.getPwd());
-        user.setRole("Client");
+        user.setRole(UsersType.CLIENT);
         usersService.addUser(user);
         return clientservice.addClient(c);
     }

@@ -5,6 +5,8 @@ import com.pidev.welend.repos.InsuranceDetailRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,18 +50,21 @@ public class InsuranceDetailServiceImp implements InsuranceDetailService{
         HashMap<Integer, Double> result = new HashMap<>();
         HashMap<Integer, Integer> counts = new HashMap<>();
         List<insuranceDetail> insuranceDetails = getAllInsuranceDetail();
+        Calendar calendar = Calendar.getInstance();
         for (insuranceDetail detail : insuranceDetails) {
-            if (detail.getAccidentDate().getYear() == year) {
-                int month = detail.getAccidentDate().getMonth();
+            calendar.setTime(detail.getAccidentDate());
+            int accidentYear = calendar.get(Calendar.YEAR);
+            if (accidentYear == year) {
+                int accidentMonth = calendar.get(Calendar.MONTH);
                 double insuredAmount = detail.getInsuredAmount();
-                if (result.containsKey(month)) {
-                    double totalAmount = result.get(month) + insuredAmount;
-                    int count = counts.getOrDefault(month, 0) + 1;
-                    result.put(month, totalAmount);
-                    counts.put(month, count);
+                if (result.containsKey(accidentMonth)) {
+                    double totalAmount = result.get(accidentMonth) + insuredAmount;
+                    int count = counts.getOrDefault(accidentMonth, 0) + 1;
+                    result.put(accidentMonth, totalAmount);
+                    counts.put(accidentMonth, count);
                 } else {
-                    result.put(month, insuredAmount);
-                    counts.put(month, 1);
+                    result.put(accidentMonth, insuredAmount);
+                    counts.put(accidentMonth, 1);
                 }
             }
         }
@@ -74,5 +79,10 @@ public class InsuranceDetailServiceImp implements InsuranceDetailService{
             }
         }
         return result;
+    }
+
+    @Override
+    public List<insuranceDetail> getAllInsuranceDetailByAcountID(Integer accountID) {
+        return insuranceDetailRepo.findAllByInsurance_Account_AccountID(accountID);
     }
 }
