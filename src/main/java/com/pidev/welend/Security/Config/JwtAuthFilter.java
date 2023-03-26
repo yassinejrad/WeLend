@@ -1,8 +1,8 @@
 package com.pidev.welend.Security.Config;
 
-import com.pidev.welend.entities.Users;
-import lombok.RequiredArgsConstructor;
+import com.pidev.welend.services.UsersService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,11 +19,13 @@ import java.io.IOException;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Component
-@RequiredArgsConstructor
+
 public class JwtAuthFilter extends OncePerRequestFilter {
 
- private final Users userDao;
- private final JwtUtils jwtUtils;
+
+    @Autowired
+ private  UsersService userDao;
+ private  JwtUtils jwtUtils;
 
 
     @Override
@@ -31,6 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String AuthHeader = request.getHeader(AUTHORIZATION);
         final String userEmail;
         final String jwtToken;
+        jwtUtils=new JwtUtils();
 
         if (AuthHeader == null || !AuthHeader.startsWith("Bearer")){
             filterChain.doFilter(request,response);

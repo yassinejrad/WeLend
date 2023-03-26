@@ -1,4 +1,4 @@
-package com.pidev.welend.Controllers;
+package com.pidev.welend.controllers;
 
 import com.pidev.welend.entities.insuranceTransaction;
 import com.pidev.welend.services.InsuranceTransactionService;
@@ -55,6 +55,12 @@ public class InsuranceTransactionController {
     @GetMapping("/getAllInsuranceTransactionSettledByInsurance/{insuranceID}")
     public List<insuranceTransaction> getAllInsuranceTransactionSettledByInsurance(@PathVariable("insuranceID") Integer insuranceID){
         return insuranceTransactionService.getAllInsuranceTransactionSettledByInsurance(insuranceID);
+
+    }
+    @GetMapping("/getAllInsuranceTransactionByAccountID/{accountID}")
+    public List<insuranceTransaction> getAllInsuranceTransactionByAccountID(@PathVariable("accountID") Integer accountID){
+        return insuranceTransactionService.getAllInsuranceTransactionByAcountID(accountID);
+
     }
     @GetMapping("/getAllInsuranceTransactionByAccountID/{accountID}")
     public List<insuranceTransaction> getAllInsuranceTransactionByAccountID(@PathVariable("accountID") Integer accountID){

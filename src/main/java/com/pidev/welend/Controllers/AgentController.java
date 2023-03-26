@@ -1,7 +1,9 @@
 package com.pidev.welend.controllers;
 
+
 import com.pidev.welend.entities.Agent;
 import com.pidev.welend.entities.Users;
+import com.pidev.welend.entities.UsersType;
 import com.pidev.welend.services.AgentService;
 import com.pidev.welend.services.UsersService;
 import lombok.AllArgsConstructor;
@@ -19,13 +21,17 @@ public class AgentController {
     @Autowired
     UsersService usersService;
 
+
     @PostMapping("/add")
     public Agent addAgent(@RequestBody Agent a){
         Users user = new Users();
         user.setEmail(a.getEmail());
         user.setPwd(a.getPwd());
-        user.setRole("Agent");
-        usersService.addUser(user);
+        switch (a.getAgentType()){
+            case ADMIN:user.setRole(UsersType.ADMIN);
+            case CONSULTANT:user.setRole(UsersType.CONSULTANT);
+        }
+       usersService.addUser(user);
         return agentService.addAgent(a);
     }
     @PutMapping("/update")
@@ -45,6 +51,5 @@ public class AgentController {
     {
         return agentService.getAgentById(agentID);
     }
-
 
 }
