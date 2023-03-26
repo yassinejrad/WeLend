@@ -20,7 +20,6 @@ public interface InsuranceService {
     public List<insurance> getAllInsurancesByAccountID(Integer accountID);
     public HashMap<String, Double> calculateInterestByinsuranceType();
 
-    public HashMap<String, Double> calculateInterestByinsuranceType();
 
 
 }

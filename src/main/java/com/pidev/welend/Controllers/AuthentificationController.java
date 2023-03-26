@@ -14,36 +14,36 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 
 public class AuthentificationController {
-    @Autowired
-    private AuthenticationManager authenticationManager;
+  @Autowired
+   private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private  UsersService userDao;
+   @Autowired
+   private  UsersService userDao;
 
-    private  JwtUtils jwtUtils;
+   private  JwtUtils jwtUtils;
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<String>authenticate(@RequestBody Users request){
-        jwtUtils=new JwtUtils();
-        System.out.println(request.getEmail()+" "+ request.getPwd());
-        try{
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPwd()));
-            System.out.println(request);
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
+   @PostMapping("/authenticate")
+   public ResponseEntity<String>authenticate(@RequestBody Users request){
+       jwtUtils=new JwtUtils();
+       System.out.println(request.getEmail()+" "+ request.getPwd());
+       try{
+       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPwd()));
+           System.out.println(request);
+       }
+       catch (Exception e){
+           System.out.println(e);
+       }
 final UserDetails user = userDao.findUserByEmail(request.getEmail());
 if (user != null){
-    return ResponseEntity.ok(jwtUtils.generateToken(user));
+   return ResponseEntity.ok(jwtUtils.generateToken(user));
 }
 return ResponseEntity.status(400).body("Error");
-    }
+   }
 
-    @GetMapping("/h")
-    public ResponseEntity<String> SayHello(){
-        return ResponseEntity.ok("Hello from oui api");
-    }
+   @GetMapping("/h")
+   public ResponseEntity<String> SayHello(){
+       return ResponseEntity.ok("Hello from oui api");
+   }
 
 
 }

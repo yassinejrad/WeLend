@@ -23,6 +23,7 @@ public class ClientController {
     @PostMapping("/add")
     public Client addClient(@RequestBody Client c){
         Users user = new Users();
+        user.setUserID(c.getClientID());
         user.setEmail(c.getEmail());
         user.setPwd(c.getPwd());
         user.setRole(UsersType.CLIENT);

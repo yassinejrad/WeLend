@@ -1,4 +1,4 @@
-package com.pidev.welend.controllers;
+package com.pidev.welend.Controllers;
 
 
 import com.pidev.welend.entities.Agent;
@@ -25,13 +25,14 @@ public class AgentController {
     @PostMapping("/add")
     public Agent addAgent(@RequestBody Agent a){
         Users user = new Users();
+        user.setUserID(a.getAgentID());
         user.setEmail(a.getEmail());
         user.setPwd(a.getPwd());
         switch (a.getAgentType()){
             case ADMIN:user.setRole(UsersType.ADMIN);
             case CONSULTANT:user.setRole(UsersType.CONSULTANT);
         }
-       usersService.addUser(user);
+        usersService.addUser(user);
         return agentService.addAgent(a);
     }
     @PutMapping("/update")
