@@ -53,12 +53,14 @@ public class LoanServiceImp implements LoanService {
     public void deleteLoan(Integer LoanID) {
         loanRepo.deleteById(LoanID);
     }
+    //calcul du taux d'interet par mois
     public double calculateInterest(Loan loan) {
         double monthlyInterestRate = loan.getInterestRate() / 12 / 100;
         double totalInterest = loan.getLoanAmount() * monthlyInterestRate * loan.getDurationInMonths();
         return totalInterest;
     }
 
+    //genere automatiquement le les paiement prévu
     public List<LoanTransaction> generatePaymentSchedule(Loan loan) {
         List<LoanTransaction> loanTransactions = new ArrayList<>();
         double monthlyInterestRate = loan.getInterestRate() / 12 / 100;
