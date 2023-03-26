@@ -19,7 +19,7 @@ public class InsuranceTransactionController {
     public insuranceTransaction addInsuranceTransaction(@RequestBody insuranceTransaction i){
         return insuranceTransactionService.addInsuranceTransaction(i);
     }
-    @PostMapping("/update")
+    @PutMapping("/update")
     public insuranceTransaction updateInsuranceTransaction(@RequestBody insuranceTransaction i){
         return insuranceTransactionService.updateInsuranceTransaction(i);
     }
@@ -61,5 +61,9 @@ public class InsuranceTransactionController {
     public List<insuranceTransaction> getAllInsuranceTransactionByAccountID(@PathVariable("accountID") Integer accountID){
         return insuranceTransactionService.getAllInsuranceTransactionByAcountID(accountID);
 
+    }
+    @GetMapping("/getAllInsuranceTransactionByAccountID/{accountID}")
+    public List<insuranceTransaction> getAllInsuranceTransactionByAccountID(@PathVariable("accountID") Integer accountID){
+        return insuranceTransactionService.getAllInsuranceTransactionByAcountID(accountID);
     }
 }

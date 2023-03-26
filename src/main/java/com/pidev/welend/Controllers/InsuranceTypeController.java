@@ -20,7 +20,7 @@ public class InsuranceTypeController {
     public insuranceType addInsuranceType(@RequestBody insuranceType i){
         return insuranceTypeService.addInsuranceType(i);
     }
-    @PostMapping("/update")
+    @PutMapping("/update")
     public insuranceType updateInsuranceType(@RequestBody insuranceType i){
         return insuranceTypeService.updateInsuranceType(i);
     }

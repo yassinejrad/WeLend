@@ -28,6 +28,8 @@ public class InsuranceServiceImp implements InsuranceService{
     AccountRepo accountRepo;
     @Autowired
     TransactionRepo transactionRepo;
+    @Autowired
+    NotificationService notificationService;
 
     @Override
     public insurance addInsurance(insurance i) {
@@ -187,6 +189,7 @@ public class InsuranceServiceImp implements InsuranceService{
             Date datetest=insurance.getEndDate();
             System.out.println(datetest);
             createInsuranceAndTransactions(insurance,currentDate);
+            notificationService.createInsuranceRenewtNotification(insurance.getAccount().getAccountID());
 
             System.out.println("Insurance renewed successfully with an interest rate of " + interestRate
                     + " and an end date of " + endDate + ". Original interest rate was " + originalInterestRate + ".");
@@ -205,7 +208,7 @@ public class InsuranceServiceImp implements InsuranceService{
 
         return (month1 == month2 && year1 == year2);
     }
-    //@Scheduled(cron = "* * * * * *")
+    @Scheduled(cron = "* * * * * *")
     public void checkInsuranceTransactionPayments() {
         try {
         List<Account> accounts = accountRepo.findAll();
@@ -221,15 +224,17 @@ public class InsuranceServiceImp implements InsuranceService{
                             try {
                                 List<insuranceTransaction> insuranceTransactions = insuranceTransactionRepo.findAllByInsurance_InsuranceID(insurance.getInsuranceID());
                                 for (insuranceTransaction insuranceTransaction : insuranceTransactions) {
-                                    if ( sameMonthAndYear(insuranceTransaction.getInsuranceTransactionDate(), transaction.getTransactionDate())) {
+                                    if (insuranceTransaction.getInsuranceTransactionStatus()==insuranceTransactionStatus.PENDING && sameMonthAndYear(insuranceTransaction.getInsuranceTransactionDate(), transaction.getTransactionDate())) {
                                         System.out.println(insuranceTransaction.getInsuranceTransactionID()+" STATUS "+insuranceTransaction.getInsuranceTransactionStatus());
                                         if (insuranceTransaction.getAmount() < transaction.getAmount()) {
                                             insuranceTransaction.setInsuranceTransactionStatus(insuranceTransactionStatus.SETTLED);
                                             insuranceTransactionRepo.save(insuranceTransaction);
+                                            notificationService.createInsurancePaymenSettledtNotification(account.getAccountID());
                                             System.out.println(insuranceTransaction.getInsuranceTransactionID()+" STATUS "+insuranceTransaction.getInsuranceTransactionStatus());
                                         } else if (insuranceTransaction.getAmount() > transaction.getAmount()) {
                                             insuranceTransaction.setInsuranceTransactionStatus(insuranceTransactionStatus.NOTFULLYSETTELED);
                                             insuranceTransactionRepo.save(insuranceTransaction);
+                                            notificationService.createInsurancePaymenNotFullySettledtNotification(account.getAccountID());
                                         }
                                     }
                                 }
