@@ -19,7 +19,7 @@ public class InsuranceTransactionController {
     public insuranceTransaction addInsuranceTransaction(@RequestBody insuranceTransaction i){
         return insuranceTransactionService.addInsuranceTransaction(i);
     }
-    @PostMapping("/update")
+    @PutMapping("/update")
     public insuranceTransaction updateInsuranceTransaction(@RequestBody insuranceTransaction i){
         return insuranceTransactionService.updateInsuranceTransaction(i);
     }

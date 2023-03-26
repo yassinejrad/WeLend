@@ -21,7 +21,7 @@ public class InsuranceController {
 
         return insuranceService.addInsurance(i);
     }
-    @PostMapping("/update")
+    @PutMapping("/update")
     public insurance updateInsurance(@RequestBody insurance i){
 
         return insuranceService.updateInsurance(i);

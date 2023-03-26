@@ -16,19 +16,19 @@ public class InsuranceDetailController {
     @Autowired
     InsuranceDetailService insuranceDetailService;
     @PostMapping("/add")
-    public insuranceDetail addInsuranceTransaction(@RequestBody insuranceDetail i){
+    public insuranceDetail addInsuranceDetail(@RequestBody insuranceDetail i){
         return insuranceDetailService.addInsuranceDetail(i);
     }
-    @PostMapping("/update")
-    public insuranceDetail updateInsuranceTransaction(@RequestBody insuranceDetail i){
+    @PutMapping("/update")
+    public insuranceDetail updateInsuranceDetail(@RequestBody insuranceDetail i){
         return insuranceDetailService.updateInsuranceDetail(i);
     }
     @DeleteMapping("/delete/{id}")
-    public void deleteInsuranceTransaction(@PathVariable("id") Integer insuranceDetailID){
+    public void deleteInsuranceDetail(@PathVariable("id") Integer insuranceDetailID){
         insuranceDetailService.deleteInsuranceDetail(insuranceDetailID);
     }
     @GetMapping("/getAll")
-    public List<insuranceDetail> getAllInsurance(){
+    public List<insuranceDetail> getAllInsuranceDetail(){
 
         return insuranceDetailService.getAllInsuranceDetail();
     }
@@ -37,8 +37,8 @@ public class InsuranceDetailController {
         return insuranceDetailService.getInsuranceDetailById(insuranceDetailID);
     }
     @GetMapping("/getByInsuranceID/{id}")
-    public List<insuranceDetail> getInsuranceDetailByInsuranceID(@PathVariable("id") Integer insuranceDetailID){
-        return insuranceDetailService.getInsuranceDetailByInsuranceID(insuranceDetailID);
+    public List<insuranceDetail> getInsuranceDetailByInsuranceID(@PathVariable("id") Integer insuranceID){
+        return insuranceDetailService.getInsuranceDetailByInsuranceID(insuranceID);
     }
     @GetMapping("/getAverageAmountSpent/{year}")
     public HashMap<Integer, Double> calculateAverageAmountSpentOnAccidents(@PathVariable("year") Integer year){
