@@ -35,7 +35,7 @@ public class LoanServiceImp implements LoanService {
 
     @Override
     public List<Loan> getAllLoans() {
-        return (List<Loan>) loanRepo.findAll();
+        return loanRepo.findAll();
 
     }
 
