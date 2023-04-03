@@ -133,20 +133,23 @@ public class InsuranceServiceImp implements InsuranceService{
     }
 
     @Override
-    public void createInsuranceAndTransactions(insurance insurance,Date date) {
+    public void createInsuranceAndTransactions(insurance insurance) {
         // Calculate the duration in months
-        int durationInMonths = calculateDurationInMonths(date, insurance.getEndDate());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(calendar.getTime());
+        Date currentDate = convertLocalDateToDate(LocalDate.now());
+        int durationInMonths = calculateDurationInMonths(currentDate, insurance.getEndDate());
 
         // Save the insurance object
-        insurance.setStartDate(date);
+
+        insurance.setStartDate(currentDate);
         insuranceRepo.save(insurance);
 
         // Calculate the transaction amount
         double transactionAmount = insurance.getAmount() / durationInMonths;
 
         // Create a transaction object for each month in the duration
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+
         System.out.println(durationInMonths);
 
         for (int i = 0; i < durationInMonths; i++) {
@@ -188,7 +191,7 @@ public class InsuranceServiceImp implements InsuranceService{
             insurance.setEndDate(endDate);
             Date datetest=insurance.getEndDate();
             System.out.println(datetest);
-            createInsuranceAndTransactions(insurance,currentDate);
+            createInsuranceAndTransactions(insurance);
             notificationService.createInsuranceRenewtNotification(insurance.getAccount().getAccountID());
 
             System.out.println("Insurance renewed successfully with an interest rate of " + interestRate

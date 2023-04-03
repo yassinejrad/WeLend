@@ -1,4 +1,4 @@
-package com.pidev.welend.controllers;
+package com.pidev.welend.Controllers;
 
 import com.pidev.welend.entities.insuranceTransaction;
 import com.pidev.welend.services.InsuranceTransactionService;
@@ -41,7 +41,7 @@ public class InsuranceTransactionController {
     }
 
     @GetMapping("/checkAllUnpaidInsuranceTransactionByYear/{id}/{year}")
-    public HashMap<insuranceTransaction, String> checkAllUnpaidInsuranceTransactionByYear(@PathVariable("id") Integer insuranceID,@PathVariable("year") Integer year){
+    public HashMap<Integer, String> checkAllUnpaidInsuranceTransactionByYear(@PathVariable("id") Integer insuranceID,@PathVariable("year") Integer year){
         return insuranceTransactionService.checkAllUnpaidInsuranceTransactionByYear(insuranceID,year);
     }
     @GetMapping("/getAllInsuranceTransactionPendingByInsurance/{insuranceID}")
