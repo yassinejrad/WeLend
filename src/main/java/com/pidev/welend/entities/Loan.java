@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +30,7 @@ public class Loan implements Serializable {
     private float interestRate;
     private int durationInMonths;
     private String collaterals;
+    private LocalDate datePaiement;
     //List<LoanTransaction> RepaymentSchedule;
 
 
@@ -40,7 +42,7 @@ public class Loan implements Serializable {
     Account account;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="loan")
-    private Set<LoanTransaction> loanTransactions;
+    private List<LoanTransaction> loanTransactions = new ArrayList<>();
 
     public LoanType getLoanType() {
         return loanType;
@@ -54,5 +56,11 @@ public class Loan implements Serializable {
     private LoanType loanType;
     @ManyToOne
     Client client;
+
+
+    public void addLoanTransaction(LoanTransaction loanTransaction) {
+        this.loanTransactions.add(loanTransaction);
+        loanTransaction.setLoan(this);
+    }
 
 }
