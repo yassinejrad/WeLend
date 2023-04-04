@@ -2,6 +2,7 @@ package com.pidev.welend.services;
 
 
 import com.pidev.welend.entities.LoanScoreWeights;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoanScoringService {
     @Autowired
-    private LoanScoreWeights loanScoreWeights;
+     LoanScoreWeights loanScoreWeights;
 
     @Value("${loan.approval.threshold}")
     private int loanApprovalThreshold;

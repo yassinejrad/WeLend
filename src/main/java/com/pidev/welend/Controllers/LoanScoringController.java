@@ -17,7 +17,7 @@ public class LoanScoringController {
     @Autowired
     private LoanScoringService loanScoringService;
 
-    @PostMapping
+    @PostMapping("/loanscore")
     public ResponseEntity<String> submitLoanScoreWeights(@RequestBody LoanScoreWeights loanScoreWeights) {
         int loanScore = loanScoringService.calculateLoanScore(loanScoreWeights);
 
