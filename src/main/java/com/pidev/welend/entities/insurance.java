@@ -25,7 +25,8 @@ public class insurance implements Serializable {
     private Integer renewalCount;
     private double intresetRate;
     private double amount;
-
+    @Enumerated(EnumType.STRING)
+    private insuranceStatus insuranceStatus;
 
     @ManyToOne Account account;
     @OneToOne

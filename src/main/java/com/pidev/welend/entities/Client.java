@@ -35,6 +35,8 @@ public class Client implements Serializable {
 
 @Enumerated(EnumType.STRING)
     private statusLog statuslog;
+    @Enumerated(EnumType.STRING)
+    private ClientType clientType;
 @OneToMany(cascade = CascadeType.ALL,mappedBy = "client")
     private Set<Reclaim> reclaims;
 @OneToMany(cascade = CascadeType.ALL,mappedBy = "client")

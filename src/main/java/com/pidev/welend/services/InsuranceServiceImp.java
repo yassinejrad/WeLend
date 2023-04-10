@@ -2,11 +2,9 @@ package com.pidev.welend.services;
 
 
 import com.pidev.welend.entities.*;
-import com.pidev.welend.repos.AccountRepo;
-import com.pidev.welend.repos.InsuranceRepo;
-import com.pidev.welend.repos.InsuranceTransactionRepo;
+import com.pidev.welend.repos.*;
 
-import com.pidev.welend.repos.TransactionRepo;
+import org.apache.poi.ss.formula.atp.Switch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,6 +17,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class InsuranceServiceImp implements InsuranceService{
+    private final double LOW_RISK_THRESHOLD = 10000.0;
+    private final double MODERATE_RISK_THRESHOLD = 5000.0;
 
     @Autowired
     InsuranceRepo insuranceRepo;
@@ -30,6 +30,8 @@ public class InsuranceServiceImp implements InsuranceService{
     TransactionRepo transactionRepo;
     @Autowired
     NotificationService notificationService;
+    @Autowired
+    ClientRepo clientRepo;
 
     @Override
     public insurance addInsurance(insurance i) {
@@ -280,6 +282,50 @@ public class InsuranceServiceImp implements InsuranceService{
             result.put(insuranceType, totalInterest);
         }
         return result;
+    }
+    public Boolean classifyClient(Integer clientID) {
+        // Calculate the total amount of transactions made on the client's account
+        Client client = clientRepo.findById(clientID).orElse(null);
+        double totalAmount = client.getAccounts().stream()
+                .flatMap(account -> account.getTransactions().stream())
+                .mapToDouble(Transaction::getAmount)
+                .sum();
+
+        boolean isRefugee = client.getClientType()== ClientType.REFUGEE;
+
+        // Classify the client based on their total amount of transactions, occupation, with an advantage for refugees
+        String category;
+        if (totalAmount > LOW_RISK_THRESHOLD && !isRefugee) {
+            category = "low risk";
+        } else if (totalAmount > MODERATE_RISK_THRESHOLD && !isRefugee) {
+            category = "moderate risk";
+        } else {
+            category = "high risk";
+        }
+
+        // Determine eligibility based on the client's classification, with an advantage for refugees
+        boolean eligible;
+        if (category.equals("low risk")) {
+            eligible = true;
+        } else if (category.equals("moderate risk")) {
+            eligible = new Random().nextDouble() < 0.8; // 80% chance of eligibility
+        } else if (isRefugee){
+            eligible = true;
+        }else {
+            eligible = false;
+        }
+
+        return eligible;
+    }
+    public Boolean confirmInsurance(insurance insurance){
+        Boolean approved = classifyClient(insurance.getAccount().getClient().getClientID());
+        if (approved) {
+            insurance.setInsuranceStatus(insuranceStatus.APPROVED);
+        }else {
+            insurance.setInsuranceStatus(insuranceStatus.DECLIEND);
+        }
+
+        return approved;
     }
 
 

@@ -1,6 +1,7 @@
 package com.pidev.welend.services;
 
 import com.pidev.welend.entities.Client;
+import com.pidev.welend.entities.insurance;
 
 import java.util.List;
 
@@ -10,4 +11,5 @@ public interface ClientService {
         public List<Client> getAllClient();
         public Client getClientById(Integer clientID);
         public void deleteClient(Integer clientID);
+
 }
