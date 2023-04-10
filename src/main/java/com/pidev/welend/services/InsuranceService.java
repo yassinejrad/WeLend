@@ -19,6 +19,7 @@ public interface InsuranceService {
     public void createInsuranceAndTransactions(insurance insurance);
     public List<insurance> getAllInsurancesByAccountID(Integer accountID);
     public HashMap<String, Double> calculateInterestByinsuranceType();
+    public Boolean confirmInsurance(insurance insurance);
 
 
 

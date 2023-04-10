@@ -63,4 +63,9 @@ public class InsuranceController {
     public HashMap<String, Double> calculateInterestByinsuranceType(){
         return insuranceService.calculateInterestByinsuranceType();
     }
+    @GetMapping("/confirmInsurance")
+    public Boolean confirmInsurance(@RequestBody insurance insurance){
+
+        return insuranceService.confirmInsurance(insurance);
+    }
 }

@@ -1,15 +1,20 @@
 package com.pidev.welend.services;
 
 import com.pidev.welend.entities.Client;
+import com.pidev.welend.entities.ClientType;
+import com.pidev.welend.entities.Transaction;
 import com.pidev.welend.repos.ClientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 
 @Service
 public class ClientServiceImp implements  ClientService{
+
+
     @Autowired
     ClientRepo clientRepo;
 
@@ -28,5 +33,6 @@ public class ClientServiceImp implements  ClientService{
     public void deleteClient(Integer clientID) {
         clientRepo.deleteById(clientID);
     }
+
 }
 
