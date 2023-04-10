@@ -16,8 +16,10 @@ public interface InsuranceService {
     public HashMap<String, Double> calculateInterestByYear(Integer year);
     public HashMap<String, Double> calculateInterestByinsurance();
     public void renewInsurance(Integer insuranceID);
-    public void createInsuranceAndTransactions(insurance insurance, Date date);
+    public void createInsuranceAndTransactions(insurance insurance);
     public List<insurance> getAllInsurancesByAccountID(Integer accountID);
     public HashMap<String, Double> calculateInterestByinsuranceType();
+
+
 
 }
