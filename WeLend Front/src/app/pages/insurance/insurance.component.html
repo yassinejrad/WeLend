@@ -1,0 +1,47 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Insurance List</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item">Insurance</li>
+        <li class="breadcrumb-item active">Insurance List</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body" >
+            <table class="table datatable">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">insuranceDescription</th>
+                <th scope="col">startDate</th>
+                <th scope="col">endDate</th>
+                <th scope="col">amount</th>
+                <th scope="col">intresetRate</th>
+                <th scope="col">renewalCount</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let insurance of insurances">
+                <th scope="col">{{insurance.insuranceID}}</th>
+                <th scope="col">{{insurance.insuranceDescription}}</th>
+                <th scope="col">{{insurance.startDate | date:'dd-MM-yyyy'}}</th>
+                <th scope="col">{{insurance.endDate | date:'dd-MM-yyyy'}}</th>
+                <th scope="col">{{insurance.amount}}</th>
+                <th scope="col">{{insurance.intresetRate}}</th>
+                <th scope="col">{{insurance.renewalCount}}</th>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
