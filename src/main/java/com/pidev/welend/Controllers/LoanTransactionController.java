@@ -4,16 +4,16 @@ package com.pidev.welend.Controllers;
 import com.pidev.welend.entities.LoanTransaction;
 import com.pidev.welend.services.LoanTransactionService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/loantransaction")
+@RequestMapping("/loanTransaction")
 public class LoanTransactionController {
-    @Autowired
+    //@Autowired
     LoanTransactionService loanTransactionService;
     @PostMapping("/add")
     public LoanTransaction addLoanTransaction(@RequestBody LoanTransaction loanTransaction )
