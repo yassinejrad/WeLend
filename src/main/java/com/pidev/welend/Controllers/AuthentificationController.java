@@ -22,7 +22,6 @@ public class AuthentificationController {
 
    private  JwtUtils jwtUtils;
 
-
    @PostMapping("/authenticate")
    public ResponseEntity<String>authenticate(@RequestBody Users request){
        jwtUtils=new JwtUtils();
@@ -45,7 +44,6 @@ return ResponseEntity.status(400).body("Error");
    public ResponseEntity<String> SayHello(){
        return ResponseEntity.ok("Hello from oui api");
    }
-
 
 
 }
