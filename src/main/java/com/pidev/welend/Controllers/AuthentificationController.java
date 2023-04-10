@@ -24,10 +24,10 @@ public class AuthentificationController {
     @PostMapping("/authenticate")
     public ResponseEntity<String>authenticate(@RequestBody AuthentificationRequest request){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
-final UserDetails user = userDao.findUserByEmail(request.getEmail());
-if (user != null){
-    return ResponseEntity.ok(jwtUtils.generateToken(user));
-}
-return ResponseEntity.status(400).body("Error");
+        final UserDetails user = userDao.findUserByEmail(request.getEmail());
+        if (user != null){
+            return ResponseEntity.ok(jwtUtils.generateToken(user));
+        }
+        return ResponseEntity.status(400).body("Error");
     }
 }
