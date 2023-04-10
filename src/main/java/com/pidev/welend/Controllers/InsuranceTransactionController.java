@@ -41,7 +41,7 @@ public class InsuranceTransactionController {
     }
 
     @GetMapping("/checkAllUnpaidInsuranceTransactionByYear/{id}/{year}")
-    public HashMap<insuranceTransaction, String> checkAllUnpaidInsuranceTransactionByYear(@PathVariable("id") Integer insuranceID,@PathVariable("year") Integer year){
+    public HashMap<Integer, String> checkAllUnpaidInsuranceTransactionByYear(@PathVariable("id") Integer insuranceID,@PathVariable("year") Integer year){
         return insuranceTransactionService.checkAllUnpaidInsuranceTransactionByYear(insuranceID,year);
     }
     @GetMapping("/getAllInsuranceTransactionPendingByInsurance/{insuranceID}")
@@ -55,6 +55,7 @@ public class InsuranceTransactionController {
     @GetMapping("/getAllInsuranceTransactionSettledByInsurance/{insuranceID}")
     public List<insuranceTransaction> getAllInsuranceTransactionSettledByInsurance(@PathVariable("insuranceID") Integer insuranceID){
         return insuranceTransactionService.getAllInsuranceTransactionSettledByInsurance(insuranceID);
+
     }
     @GetMapping("/getAllInsuranceTransactionByAccountID/{accountID}")
     public List<insuranceTransaction> getAllInsuranceTransactionByAccountID(@PathVariable("accountID") Integer accountID){

@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+
+
 public class JwtUtils {
     private String SECRET_KEY = "secret";
 
@@ -41,6 +43,7 @@ public class JwtUtils {
 
 
     private String createToken(Map<String, Object> claims, UserDetails userDetails) {
+        System.out.println(userDetails.getUsername());
 
         return Jwts.builder().setClaims(claims).setSubject(userDetails.getUsername()).claim("authorities",userDetails.getAuthorities()).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(24)))

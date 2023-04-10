@@ -24,9 +24,6 @@ public class UsersController {
     @Autowired
     ClientService clientService;
 
-
-
-
     @PostMapping("/add")
     public Users addUser(@RequestBody Users u){
         return usersService.addUser(u);

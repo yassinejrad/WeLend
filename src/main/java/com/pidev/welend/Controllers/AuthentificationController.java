@@ -1,33 +1,51 @@
 package com.pidev.welend.Controllers;
 
 import com.pidev.welend.Security.Config.JwtUtils;
-import com.pidev.welend.dto.AuthentificationRequest;
 import com.pidev.welend.entities.Users;
-import lombok.RequiredArgsConstructor;
+import com.pidev.welend.services.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@RequiredArgsConstructor
-public class AuthentificationController {
-    private final AuthenticationManager authenticationManager;
-    private final Users userDao;
-    private final JwtUtils jwtUtils;
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<String>authenticate(@RequestBody AuthentificationRequest request){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
-        final UserDetails user = userDao.findUserByEmail(request.getEmail());
-        if (user != null){
-            return ResponseEntity.ok(jwtUtils.generateToken(user));
-        }
-        return ResponseEntity.status(400).body("Error");
-    }
+public class AuthentificationController {
+  @Autowired
+   private AuthenticationManager authenticationManager;
+
+   @Autowired
+   private  UsersService userDao;
+
+   private  JwtUtils jwtUtils;
+
+
+   @PostMapping("/authenticate")
+   public ResponseEntity<String>authenticate(@RequestBody Users request){
+       jwtUtils=new JwtUtils();
+       System.out.println(request.getEmail()+" "+ request.getPwd());
+       try{
+       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPwd()));
+           System.out.println(request);
+       }
+       catch (Exception e){
+           System.out.println(e);
+       }
+final UserDetails user = userDao.findUserByEmail(request.getEmail());
+if (user != null){
+   return ResponseEntity.ok(jwtUtils.generateToken(user));
+}
+return ResponseEntity.status(400).body("Error");
+   }
+
+   @GetMapping("/h")
+   public ResponseEntity<String> SayHello(){
+       return ResponseEntity.ok("Hello from oui api");
+   }
+
+
+
 }

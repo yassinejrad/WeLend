@@ -55,9 +55,9 @@ public class InsuranceController {
     public void renewInsurance(@PathVariable("id") Integer insuranceID){
          insuranceService.renewInsurance(insuranceID);
     }
-    @PostMapping("/addInsuranceAndTransaction/{date}")
-    public void createInsuranceAndTransactions(@RequestBody insurance i, @PathVariable("date")Date date){
-         insuranceService.createInsuranceAndTransactions(i,date);
+    @PostMapping("/addInsuranceAndTransaction")
+    public void createInsuranceAndTransactions(@RequestBody insurance i){
+         insuranceService.createInsuranceAndTransactions(i);
     }
     @GetMapping("/calculateInterestByinsuranceType")
     public HashMap<String, Double> calculateInterestByinsuranceType(){

@@ -13,7 +13,7 @@ public interface InsuranceTransactionService {
     public insuranceTransaction getInsuranceTransactionById(Integer insuranceTransactionID);
     public void deleteInsuranceTransaction(Integer insuranceTransactionId);
     public List<insuranceTransaction> getInsuranceTransactionByInsuranceID(Integer insuranceID);
-    public HashMap<insuranceTransaction, String> checkAllUnpaidInsuranceTransactionByYear(Integer insuranceID,Integer year);
+    public HashMap<Integer, String> checkAllUnpaidInsuranceTransactionByYear(Integer insuranceID,Integer year);
     List<insuranceTransaction> getAllInsuranceTransactionPendingByInsurance(Integer insuranceID);
     List<insuranceTransaction> getAllInsuranceTransactionNotfullysetteledByInsurance(Integer insuranceID);
     List<insuranceTransaction> getAllInsuranceTransactionSettledByInsurance(Integer insuranceID);

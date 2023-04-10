@@ -54,17 +54,19 @@ public class InsuranceTransactionServiceImp implements InsuranceTransactionServi
         return insuranceTransactionRepo.findAllByInsurance_InsuranceID(insuranceID);
     }
     @Override
-    public HashMap<insuranceTransaction, String> checkAllUnpaidInsuranceTransactionByYear(Integer insuranceID,Integer year){
-        HashMap<insuranceTransaction, String> result = new HashMap<>();
+    public HashMap<Integer, String> checkAllUnpaidInsuranceTransactionByYear(Integer insuranceID,Integer year){
+        HashMap<Integer, String> result = new HashMap<>();
         insurance insurance=insuranceRepo.findById(insuranceID).orElse(null);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(insurance.getEndDate());
-        int insuranceMonth = calendar.get(Calendar.MONTH);
+
         try {
             List<insuranceTransaction> insuranceTransactions = insuranceTransactionRepo.findAllByInsurance_InsuranceIDAndInsuranceTransactionDate_Year(insuranceID,year);
+
             for (insuranceTransaction insuranceTransaction : insuranceTransactions){
                 if (insuranceTransaction.getInsuranceTransactionStatus() == insuranceTransactionStatus.PENDING){
-                    result.put(insuranceTransaction,insuranceMonth+"/"+year);
+                    calendar.setTime(insuranceTransaction.getInsuranceTransactionDate());
+                    int insuranceMonth = calendar.get(Calendar.MONTH);
+                    result.put(insuranceTransaction.getInsuranceTransactionID(),insuranceMonth+"/"+year);
                 }
             }
         }catch (Exception e){
