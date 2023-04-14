@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/insuranceTransaction")
+@CrossOrigin(origins = "http://localhost:4200")
 public class InsuranceTransactionController {
     @Autowired
     InsuranceTransactionService insuranceTransactionService;

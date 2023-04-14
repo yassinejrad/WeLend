@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Add Insurance</h2>
+<form [formGroup]="addInsuranceForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Insurance Description" formControlName="insuranceDescription">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput [matDatepicker]="startDate" placeholder="Start Date" formControlName="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput [matDatepicker]="endDate" placeholder="End Date" formControlName="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Amount" formControlName="amount">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Interest Rate" formControlName="interestRate">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Renewal Count" formControlName="renewalCount">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">Save</button>
+    <button mat-button mat-dialog-close [disabled]="isLoading">Cancel</button>
+  </mat-dialog-actions>
+</form>

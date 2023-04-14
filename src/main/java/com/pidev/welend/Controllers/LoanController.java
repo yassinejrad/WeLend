@@ -22,6 +22,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/loan")
+@CrossOrigin(origins = "http://localhost:4200")
 public class LoanController {
     //@Autowired
     LoanService loanService;
