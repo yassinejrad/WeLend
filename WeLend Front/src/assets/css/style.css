@@ -1,6 +1,8 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
 :root {
 	scroll-behavior: smooth;
   }

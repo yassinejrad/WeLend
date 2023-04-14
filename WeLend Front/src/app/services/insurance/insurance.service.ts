@@ -11,6 +11,34 @@ import {AuthentificationService} from "../authentification/authentification.serv
   providedIn: 'root'
 })
 export class InsuranceService {
+  insuranceList:Insurance[]=[{
+    insuranceID:0,
+    insuranceDescription: 'Static Insurance',
+    startDate: new Date('2022-01-01'),
+    endDate: new Date('2022-12-31'),
+    amount: 1000,
+    intresetRate: 5,
+    renewalCount: 0
+  },
+  {
+    insuranceID:2,
+    insuranceDescription: 'Static Insurance',
+    startDate: new Date('2022-01-01'),
+    endDate: new Date('2022-12-31'),
+    amount: 1000,
+    intresetRate: 5,
+    renewalCount: 0
+  },
+  {
+    insuranceID:3,
+    insuranceDescription: 'Static Insurance',
+    startDate: new Date('2022-01-01'),
+    endDate: new Date('2022-12-31'),
+    amount: 1000,
+    intresetRate: 5,
+    renewalCount: 0
+  }];
+  
   private apiUrl =environment.apiBaseUrl;
 
   constructor(private http: HttpClient, private authService: AuthentificationService) {}

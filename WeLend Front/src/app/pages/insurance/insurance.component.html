@@ -8,40 +8,121 @@
         <li class="breadcrumb-item active">Insurance List</li>
       </ol>
     </nav>
+      <button type="button" class="btn btn-md btn-outline-primary" (click)="open(addInsurance)">Add Insurance</button>
   </div>
   <section class="section">
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
-          <div class="card-body" >
+          <div class="card-body">
             <table class="table datatable">
               <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">insuranceDescription</th>
-                <th scope="col">startDate</th>
-                <th scope="col">endDate</th>
-                <th scope="col">amount</th>
-                <th scope="col">intresetRate</th>
-                <th scope="col">renewalCount</th>
-              </tr>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Insurance Description</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Interest Rate</th>
+                  <th scope="col">Renewal Count</th>
+                  <th scope="col">Actions</th>
+                </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let insurance of insurances">
-                <th scope="col">{{insurance.insuranceID}}</th>
-                <th scope="col">{{insurance.insuranceDescription}}</th>
-                <th scope="col">{{insurance.startDate | date:'dd-MM-yyyy'}}</th>
-                <th scope="col">{{insurance.endDate | date:'dd-MM-yyyy'}}</th>
-                <th scope="col">{{insurance.amount}}</th>
-                <th scope="col">{{insurance.intresetRate}}</th>
-                <th scope="col">{{insurance.renewalCount}}</th>
-              </tr>
+                <tr *ngFor="let insurance of insurances | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <td scope="row">{{insurance.insuranceID}}</td>
+                  <td>{{insurance.insuranceDescription}}</td>
+                  <td>{{insurance.startDate | date:'dd-MM-yyyy'}}</td>
+                  <td>{{insurance.endDate | date:'dd-MM-yyyy'}}</td>
+                  <td>{{insurance.amount}}</td>
+                  <td>{{insurance.intresetRate}}</td>
+                  <td>{{insurance.renewalCount}}</td>
+                  <td>
+                    <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
+                    <button type="button"  class="btn btn-info" (click)="open(addInsurance)"><i class="bi bi-pencil"></i></button>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                </td>                                 
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
+        
       </div>
-    </div>
-  </section>
+    </div>  
+      <div class="card-body">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </ul>
+        </nav>
+      </div>    
+
+    
+            
+ </section>
 </main>
+<ng-template #addInsurance let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Insurance</h4>
+  </div>
+  <div class="modal-body">
+    <form #addInsuranceForm="ngForm"  name="addInsuranceForm" >
+      <div class="form-group">
+        <label for="insuranceDescription" class=" col-form-label">Insurance Description</label>
+        <input type="text" name="insuranceDescription" class="form-control" id="insuranceDescription" [(ngModel)]="insurance.insuranceDescription" #insuranceDescription="ngModel" required>
+        <div   *ngIf="insuranceDescription.touched && insuranceDescription.invalid">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="insuranceDescription.errors?.['required']">Insurance Description is required.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="startDate" class=" col-form-label">Start Date</label>
+        <input type="date" name="startDate" class="form-control" id="startDate" [(ngModel)]="insurance.startDate" #startDate="ngModel" required>
+        <div   *ngIf="startDate.touched && startDate.invalid">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="startDate.errors?.['required']">Start Date is required.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="endDate" class=" col-form-label">End Date</label>
+        <input type="date" name="endDate" class="form-control" id="endDate" [(ngModel)]="insurance.endDate" #endDate="ngModel" required>
+        <div   *ngIf="endDate.touched && endDate.invalid">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="endDate.errors?.['required']">End Date is required.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="amount" class=" col-form-label">Amount</label>
+        <input type="number" name="amount" class="form-control" id="amount" [(ngModel)]="insurance.amount" #amount="ngModel" min="1" required>
+        <div   *ngIf="amount.touched && amount.invalid">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="amount.errors?.['required']">Amount is required.</div>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="amount.errors?.['min']">Amount should be at least 1.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="interestRate">Interest Rate</label>
+        <input type="number" name="interestRate" class="form-control" id="interestRate" min="0" max="100" [(ngModel)]="insurance.intresetRate" #interestRate="ngModel" required>
+        <div *ngIf="interestRate.touched && interestRate.invalid">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="interestRate.errors?.['required']">Interest Rate is required.</div>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="interestRate.errors?.['min']">Interest Rate cannot be less than 0.</div>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="interestRate.errors?.['max']">Interest Rate cannot be greater than 100.</div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="renewalCount" class=" col-form-label">Renewal Count</label>
+        <input type="number" name="renewalCount" class="form-control" id="renewalCount" min="0" [(ngModel)]="insurance.renewalCount" #renewalCount="ngModel">
+        <div *ngIf="renewalCount.touched && renewalCount.invalid">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="renewalCount.errors?.['min']">Renewal Count cannot be less than 0.</div>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" [disabled]="addInsuranceForm.invalid" (click)="modal.close('Save click') ">Save</button>
+    <button type="button" class="btn btn-danger" aria-label="Close"  (click)="modal.dismiss('Cross click')">Cancel</button>
+  </div>
+</ng-template>
 

@@ -17,25 +17,13 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @EnableScheduling
-@Configuration
-@EnableWebMvc
-@CrossOrigin(origins = "http://localhost:4200/")
+
 public class WeLendApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(WeLendApplication.class, args);
     }
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("*")
-                        .allowedMethods("*")
-                        .allowedHeaders("*");
-            }
-        };
-    }
+
+
 
 }

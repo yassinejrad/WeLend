@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/loantype")
+@CrossOrigin(origins = "http://localhost:4200")
 public class LoanTypeController {
     //@Autowired
     LoanTypeService  loanTypeService;

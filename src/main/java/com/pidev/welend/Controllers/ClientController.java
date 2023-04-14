@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/client")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ClientController {
     @Autowired
     ClientService clientservice;

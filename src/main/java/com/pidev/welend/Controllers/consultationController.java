@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/Consultation")
+@CrossOrigin(origins = "http://localhost:4200")
 public class consultationController {
     @Autowired
     consultationService consultationservice;

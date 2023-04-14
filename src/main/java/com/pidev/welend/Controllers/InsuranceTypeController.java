@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/insuranceType")
+@CrossOrigin(origins = "http://localhost:4200")
 public class InsuranceTypeController {
     @Autowired
     InsuranceTypeService insuranceTypeService;

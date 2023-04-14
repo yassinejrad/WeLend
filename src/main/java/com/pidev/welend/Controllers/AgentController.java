@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/agent")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AgentController {
     @Autowired
     AgentService agentService;
