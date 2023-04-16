@@ -1,8 +1,9 @@
 package com.pidev.welend.services;
 
-import com.pidev.welend.entities.Agent;
 
 import java.util.List;
+
+import com.pidev.welend.entities.Agent;
 
 public interface AgentService {
     public Agent addAgent(Agent a );

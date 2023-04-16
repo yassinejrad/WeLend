@@ -28,5 +28,20 @@ public class ClientServiceImp implements  ClientService{
     public void deleteClient(Integer clientID) {
         clientRepo.deleteById(clientID);
     }
+
+    @Override
+    public Client NotificationBeforeConsultation(Client c) {
+        return null;
+    }
+
+    @Override
+    public Client NotificationAfterConsultation(Client c) {
+        return null;
+    }
+
+    @Override
+    public List<Client> BankScoring() {
+        return null;
+    }
 }
 

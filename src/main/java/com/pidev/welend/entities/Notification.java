@@ -25,4 +25,36 @@ public class Notification implements Serializable {
     @Enumerated(EnumType.STRING)
     private notificationType notificationType;
     @ManyToOne Account account;
+	public Integer getNotificationID() {
+		return notificationID;
+	}
+	public void setNotificationID(Integer notificationID) {
+		this.notificationID = notificationID;
+	}
+	public String getNotificationContent() {
+		return notificationContent;
+	}
+	public void setNotificationContent(String notificationContent) {
+		this.notificationContent = notificationContent;
+	}
+	public Date getNotificationDate() {
+		return notificationDate;
+	}
+	public void setNotificationDate(Date notificationDate) {
+		this.notificationDate = notificationDate;
+	}
+	public notificationType getNotificationType() {
+		return notificationType;
+	}
+	public void setNotificationType(notificationType notificationType) {
+		this.notificationType = notificationType;
+	}
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+    
+    
 }

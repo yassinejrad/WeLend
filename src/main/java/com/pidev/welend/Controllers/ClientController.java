@@ -7,6 +7,7 @@ import com.pidev.welend.services.ClientService;
 import com.pidev.welend.services.UsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,12 +21,17 @@ public class ClientController {
 
     @Autowired
     UsersService usersService;
+    
+    @Autowired
+	PasswordEncoder encoder;
     @PostMapping("/add")
     public Client addClient(@RequestBody Client c){
         Users user = new Users();
         user.setEmail(c.getEmail());
-        user.setPwd(c.getPwd());
+        user.setPassword(c.getPwd());
+        user.setUsername(c.getUserName());
         user.setRole(UsersType.CLIENT);
+        c.setPwd(encoder.encode(c.getPwd()));
         usersService.addUser(user);
         return clientservice.addClient(c);
     }

@@ -10,4 +10,7 @@ public interface consultationService {
     public List<Consultation> getAllConsultation();
     public Consultation getConsultationByID(Integer consultationID);
     public void deleteConsultation(Integer consultationID);
+    public List<Consultation> ConsultationCalender();
+    public List<Consultation> ClientSurveys();
+
 }

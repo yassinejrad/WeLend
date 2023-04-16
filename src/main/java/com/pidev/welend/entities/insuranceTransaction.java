@@ -22,4 +22,41 @@ public class insuranceTransaction implements Serializable {
     private String Description;
     private Date insuranceTransactionDate;
     @ManyToOne insurance insurance;
+	public Integer getInsuranceTransactionID() {
+		return insuranceTransactionID;
+	}
+	public void setInsuranceTransactionID(Integer insuranceTransactionID) {
+		this.insuranceTransactionID = insuranceTransactionID;
+	}
+	public double getAmount() {
+		return amount;
+	}
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+	public insuranceTransactionStatus getInsuranceTransactionStatus() {
+		return insuranceTransactionStatus;
+	}
+	public void setInsuranceTransactionStatus(insuranceTransactionStatus insuranceTransactionStatus) {
+		this.insuranceTransactionStatus = insuranceTransactionStatus;
+	}
+	public String getDescription() {
+		return Description;
+	}
+	public void setDescription(String description) {
+		Description = description;
+	}
+	public Date getInsuranceTransactionDate() {
+		return insuranceTransactionDate;
+	}
+	public void setInsuranceTransactionDate(Date insuranceTransactionDate) {
+		this.insuranceTransactionDate = insuranceTransactionDate;
+	}
+	public insurance getInsurance() {
+		return insurance;
+	}
+	public void setInsurance(insurance insurance) {
+		this.insurance = insurance;
+	}
+    
 }

@@ -1,4 +1,4 @@
-package com.pidev.welend.controllers;
+package com.pidev.welend.Controllers;
 
 
 import com.pidev.welend.entities.Agent;
@@ -8,6 +8,7 @@ import com.pidev.welend.services.AgentService;
 import com.pidev.welend.services.UsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,18 +21,24 @@ public class AgentController {
     AgentService agentService;
     @Autowired
     UsersService usersService;
-
+    @Autowired
+   	PasswordEncoder encoder;
 
     @PostMapping("/add")
     public Agent addAgent(@RequestBody Agent a){
         Users user = new Users();
         user.setEmail(a.getEmail());
-        user.setPwd(a.getPwd());
-        switch (a.getAgentType()){
-            case ADMIN:user.setRole(UsersType.ADMIN);
-            case CONSULTANT:user.setRole(UsersType.CONSULTANT);
+        user.setPassword((a.getPwd()));
+        user.setUsername(a.getUserName());
+        String role = String.valueOf(a.getAgentType());
+        if(role=="ADMIN"){
+            user.setRole(UsersType.ADMIN);
+        }
+        else if(role=="CONSULTANT"){
+            user.setRole(UsersType.CONSULTANT);
         }
        usersService.addUser(user);
+       a.setPwd(encoder.encode(a.getPwd()));
         return agentService.addAgent(a);
     }
     @PutMapping("/update")

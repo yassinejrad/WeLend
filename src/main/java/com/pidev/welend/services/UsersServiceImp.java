@@ -1,12 +1,17 @@
 package com.pidev.welend.services;
 
 import com.pidev.welend.entities.Users;
+import com.pidev.welend.entities.UsersType;
 import com.pidev.welend.repos.UsersRepo;
+import com.pidev.welend.security.MessageResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -19,28 +24,31 @@ public class UsersServiceImp implements UsersService{
     @Autowired
     UsersRepo usersRepo;
 
-    private final static List<UserDetails> APPLICATION_USERS = Arrays.asList(
-            new User(
-                    "rafiaaons.zitouni@esprit.tn",
-                    "password",
-                    Collections.singleton(new SimpleGrantedAuthority("admin"))
-            ),
-            new User(
-                    "agent.mail@esprit.tn",
-                    "password",
-                    Collections.singleton(new SimpleGrantedAuthority("Agent"))
-            )
-    );
+    @Autowired
+	PasswordEncoder encoder;
 
     @Override
-    public UserDetails findUserByEmail(String email) {
-        return APPLICATION_USERS.stream().filter(u -> u.getUsername().equals(email)).findFirst().orElseThrow(() -> new UsernameNotFoundException("No User Found"));
+    public Users findUserByEmail(String email) {
+      return usersRepo.getUserByEmail(email);
     }
 
 
     @Override
     public Users addUser(Users u) {
-        return usersRepo.save(u);
+    	if (usersRepo.existsByUsername(u.getUsername())) {
+			System.out.println("username existe");
+		}
+
+		if (usersRepo.existsByEmail(u.getEmail())) {
+			System.out.println("username existe");
+		}
+		Users users = new Users(u.getUsername(), 
+							 u.getEmail(),
+							 encoder.encode(u.getPassword()));
+		users.setRole(u.getRole());
+		users.setEnable(true);
+		users.setLocked(false);
+		return usersRepo.save(users);
     }
 
     @Override
@@ -53,13 +61,22 @@ public class UsersServiceImp implements UsersService{
         return usersRepo.findAll();
     }
 
-    @Override
-    public Users getUserByID(Integer UserID) {
-        return usersRepo.findById(UserID).orElse(null);
-    }
 
-    @Override
-    public void deleteUser(Integer UserID) {
-        usersRepo.deleteById(UserID);
-    }
+	@Override
+	public Users getUserByID(Integer UserID) {
+		
+		return usersRepo.getById(UserID);
+	}
+
+
+	@Override
+	public void deleteUser(Integer UserID) {
+		usersRepo.deleteById(UserID);
+		
+	}
+	@Override
+	public List<Users> getAllUsersByRoleClient() {
+		return usersRepo.findByRole(UsersType.CLIENT);
+	}
+
 }

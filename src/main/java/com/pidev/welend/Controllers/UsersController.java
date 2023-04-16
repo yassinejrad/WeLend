@@ -25,13 +25,6 @@ public class UsersController {
     ClientService clientService;
 
 
-
-
-    @PostMapping("/add")
-    public Users addUser(@RequestBody Users u){
-        return usersService.addUser(u);
-    }
-
     @PutMapping("/update")
     public Users updateUser(@RequestBody Users u){
         return usersService.updateUser(u);
@@ -50,6 +43,10 @@ public class UsersController {
     public Users getByUser(@PathVariable("id") Integer UserID)
     {
         return usersService.getUserByID(UserID);
+    }
+    @GetMapping("/getAllClients")
+    public List<Users> getAllUsersByRoleClient() {
+        return usersService.getAllUsersByRoleClient();
     }
 
 

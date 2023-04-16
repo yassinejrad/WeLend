@@ -30,6 +30,16 @@ public class consultationServiceImp implements consultationService {
     @Override
     public void deleteConsultation(Integer consultationID) {consultationrepo.deleteById(consultationID);}
 
+    @Override
+    public List<Consultation> ConsultationCalender() {
+        return null;
+    }
+
+    @Override
+    public List<Consultation> ClientSurveys() {
+        return null;
+    }
+
 
 }
 
