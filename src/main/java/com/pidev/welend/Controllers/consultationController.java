@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,6 +34,13 @@ public class consultationController {
     {
         return consultationservice.getConsultationByID(consultationID);
     }
+    @GetMapping("/ConsultationCalender/{id}")
+    public List<Date> ConsultationCalender(@PathVariable("id") Integer agentID)
+    {
+        return consultationservice.ConsultationCalender(agentID);
+    }
+
+    
 
 }
 

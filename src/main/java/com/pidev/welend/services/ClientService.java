@@ -10,4 +10,10 @@ public interface ClientService {
         public List<Client> getAllClient();
         public Client getClientById(Integer clientID);
         public void deleteClient(Integer clientID);
+        public Client NotificationBeforeConsultation (Integer clientID);
+        public Client NotificationAfterConsultation (Integer clientID);
+        public String BankScoring(Integer clientID);
+
+
+
 }
