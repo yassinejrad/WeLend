@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -53,6 +52,9 @@ import { AddInsuranceComponentComponent } from './pages/insurance/add-insurance-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ClientComponent } from './components/client/client.component';
+
+
 
 
 
@@ -96,7 +98,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     PagesBlankComponent,
     InsuranceComponent,
     AuthentificationComponent,
-    AddInsuranceComponentComponent
+    AddInsuranceComponentComponent,
+    ClientComponent,
   ],
     imports: [
         BrowserModule,
@@ -113,9 +116,13 @@ import { NgxPaginationModule } from 'ngx-pagination';
         BrowserAnimationsModule,
         NgbModule,
         NgbModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+      
     ],
-  providers: [InsuranceComponent],
-  bootstrap: [AppComponent]
+ 
+    providers: [InsuranceComponent],
+    bootstrap: [AppComponent]
+  
 })
 export class AppModule { }
+

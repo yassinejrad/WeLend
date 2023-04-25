@@ -1,36 +1,38 @@
+
 <h2 mat-dialog-title>Add Insurance</h2>
 <form [formGroup]="addInsuranceForm" (ngSubmit)="onSubmit()">
-  <mat-dialog-content>
-    <mat-form-field class="example-full-width">
+  <div mat-dialog-content>
+    <div mat-form-field class="example-full-width">
       <input matInput placeholder="Insurance Description" formControlName="insuranceDescription">
-    </mat-form-field>
+    </div>
 
-    <mat-form-field class="example-full-width">
-      <input matInput [matDatepicker]="startDate" placeholder="Start Date" formControlName="startDate">
-      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-      <mat-datepicker #startDate></mat-datepicker>
-    </mat-form-field>
+    <div mat-form-field class="example-full-width">
+      <input matInput [attr.matDatepicker]="startDate" placeholder="Start Date" formControlName="startDate">
+      <div mat-datepicker-toggle matSuffix [attr.for]="startDate"></div>
+      <div mat-datepicker #startDate></div>
+    </div>
 
-    <mat-form-field class="example-full-width">
-      <input matInput [matDatepicker]="endDate" placeholder="End Date" formControlName="endDate">
-      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-      <mat-datepicker #endDate></mat-datepicker>
-    </mat-form-field>
+    <div mat-form-field class="example-full-width">
+      <input matInput [attr.matDatepicker]="endDate" placeholder="End Date" formControlName="endDate">
+      <div mat-datepicker-toggle matSuffix [attr.for]="endDate"></div>
+      <div mat-datepicker #endDate></div>
+    </div>
 
-    <mat-form-field class="example-full-width">
+    <div mat-form-field class="example-full-width">
       <input matInput placeholder="Amount" formControlName="amount">
-    </mat-form-field>
+    </div>
 
-    <mat-form-field class="example-full-width">
+    <div mat-form-field class="example-full-width">
       <input matInput placeholder="Interest Rate" formControlName="interestRate">
-    </mat-form-field>
+    </div>
 
-    <mat-form-field class="example-full-width">
+    <div mat-form-field class="example-full-width">
       <input matInput placeholder="Renewal Count" formControlName="renewalCount">
-    </mat-form-field>
-  </mat-dialog-content>
-  <mat-dialog-actions>
+    </div>
+  </div>
+  <div mat-dialog-actions>
     <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">Save</button>
     <button mat-button mat-dialog-close [disabled]="isLoading">Cancel</button>
-  </mat-dialog-actions>
+  </div>
+
 </form>

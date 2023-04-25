@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatCommonModule } from '@angular/material/core';   
 
-import { Insurance } from 'src/app/entities/insurance';
-import { InsuranceService } from 'src/app/services/insurance/insurance.service';
+import { Insurance } from "../../../entities/insurance"
+import { InsuranceService } from '../../../services/insurance/insurance.service';
 import { InsuranceComponent } from '../insurance.component';
 
 @Component({

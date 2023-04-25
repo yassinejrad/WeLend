@@ -25,12 +25,12 @@ public class consultationController {
     {
         consultationservice.deleteConsultation(consultationID);}
     @GetMapping("/getAll")
-    public List<Consultation> getAllReclaim()
+    public List<Consultation> getAllConsultation()
     {
         return consultationservice.getAllConsultation();
     }
     @GetMapping("/getById/{id}")
-    public Consultation getByReclaim(@PathVariable("id") Integer consultationID)
+    public Consultation getByConsultation(@PathVariable("id") Integer consultationID)
     {
         return consultationservice.getConsultationByID(consultationID);
     }
