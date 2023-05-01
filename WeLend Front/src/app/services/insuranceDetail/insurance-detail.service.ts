@@ -11,7 +11,7 @@ export class InsuranceDetailService {
   private apiUrl =environment.apiBaseUrl;
   constructor(private http: HttpClient) { }
   public getAllInsuranceDetails(): Observable<InsuranceDetail[]>{
-    return this.http.get<InsuranceDetail[]>(`${this.apiUrl}/insuranceDetail/all`);
+    return this.http.get<InsuranceDetail[]>(`${this.apiUrl}/insuranceDetail/getAll`);
   }
   public addInsuranceDetail(insuranceDetail:InsuranceDetail): Observable<InsuranceDetail>{
     return this.http.post<InsuranceDetail>(`${this.apiUrl}/insuranceDetail/add`,insuranceDetail);
@@ -20,19 +20,19 @@ export class InsuranceDetailService {
     return this.http.put<InsuranceDetail>(`${this.apiUrl}/insuranceDetail/update`,insuranceDetail);
   }
   public deleteInsuranceDetail(insuranceDetailID:number): Observable<void>{
-    return this.http.delete<void>(`${this.apiUrl}/insuranceDetail/delete`+insuranceDetailID);
+    return this.http.delete<void>(`${this.apiUrl}/insuranceDetail/delete/`+insuranceDetailID);
   }
   public getInsuranceDetailById(insuranceDetailID:number): Observable<InsuranceDetail>{
-    return this.http.get<InsuranceDetail>(`${this.apiUrl}/insuranceDetail/getByID`+insuranceDetailID);
+    return this.http.get<InsuranceDetail>(`${this.apiUrl}/insuranceDetail/getByID/`+insuranceDetailID);
   }
   public getInsuranceDetailByInsuranceID(insuranceID:number): Observable<InsuranceDetail[]>{
-    return this.http.get<InsuranceDetail[]>(`${this.apiUrl}/insuranceDetail/getByInsuranceID`+insuranceID);
+    return this.http.get<InsuranceDetail[]>(`${this.apiUrl}/insuranceDetail/getByInsuranceID/`+insuranceID);
   }
   public getAverageAmountSpent(year: number): Observable<Map<number, number>> {
-    return this.http.get<Map<number, number>>(`${this.apiUrl}/getAverageAmountSpent/`+year);
+    return this.http.get<Map<number, number>>(`${this.apiUrl}/insuranceDetail/getAverageAmountSpent/`+year);
   }
   public getAllInsuranceDetailByAccountID(accountID:number): Observable<InsuranceDetail[]>{
-    return this.http.get<InsuranceDetail[]>(`${this.apiUrl}/insuranceDetail/getAllInsuranceDetailByAccountID`+accountID);
+    return this.http.get<InsuranceDetail[]>(`${this.apiUrl}/insuranceDetail/getAllInsuranceDetailByAccountID/`+accountID);
   }
 
 }

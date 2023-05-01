@@ -1,4 +1,4 @@
-package com.pidev.welend.Security.Config;
+/*package com.pidev.welend.Security.Config;
 
 import com.pidev.welend.services.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**/auth/**")
+
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -74,3 +74,4 @@ return authenticationProvider;
         };
     }
 }
+*/

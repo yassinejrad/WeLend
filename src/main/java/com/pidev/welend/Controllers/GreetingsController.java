@@ -1,4 +1,4 @@
-package com.pidev.welend.Controllers;
+/*package com.pidev.welend.Controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,4 +17,4 @@ public class GreetingsController {
     }
 
 
-}
+}*/

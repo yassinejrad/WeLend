@@ -1,4 +1,4 @@
-package com.pidev.welend.services;
+/*package com.pidev.welend.services;
 
 import com.pidev.welend.entities.Users;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,3 +14,4 @@ public interface UsersService {
     public Users getUserByID(Integer UserID);
     public void deleteUser(Integer UserID);
 }
+*/

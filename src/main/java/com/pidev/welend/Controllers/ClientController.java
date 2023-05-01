@@ -1,4 +1,4 @@
-package com.pidev.welend.Controllers;
+/*package com.pidev.welend.Controllers;
 
 import com.pidev.welend.entities.Client;
 import com.pidev.welend.entities.Users;
@@ -53,3 +53,4 @@ public class ClientController {
 
 }
 
+*/

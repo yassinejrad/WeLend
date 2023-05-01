@@ -33,42 +33,28 @@ import { PagesLoginComponent } from './pages/pages-login/pages-login.component';
 import { PagesRegisterComponent } from './pages/pages-register/pages-register.component';
 import { UsersProfileComponent } from './pages/users-profile/users-profile.component';
 import { InsuranceComponent } from "./pages/insurance/insurance.component";
+import { InsuranceTypeComponent } from './pages/insurance/insurance-type/insurance-type.component';
+import { InsuranceTransactionComponent } from './pages/insurance/insurance-transaction/insurance-transaction.component';
+import { InsuranceDetailComponent } from './pages/insurance/insurance-detail/insurance-detail.component';
+import { InsuranceClientComponent } from './pages/insurance/insurance-client/insurance-client.component';
+import { InsuranceDetailClientComponent } from './pages/insurance/insurance-detail-client/insurance-detail-client.component';
+import { InsuranceTransactionClientComponent } from './pages/insurance/insurance-transaction-client/insurance-transaction-client.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
+  {path: 'myInsurance', component: InsuranceClientComponent},
+  {path : 'myInsuranceDetail',component: InsuranceDetailClientComponent},
+  {path: 'myInsuranceTransaction',component:InsuranceTransactionClientComponent},
   { path: 'insurance', component: InsuranceComponent},
+  {path:'insuranceTransaction', component:InsuranceTransactionComponent},
+  { path: 'insuranceType', component: InsuranceTypeComponent},
+  {path:'insuranceDetail', component: InsuranceDetailComponent},
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'alerts', component: AlertsComponent },
-  { path: 'accordion', component: AccordionComponent },
-  { path: 'badges', component: BadgesComponent },
-  { path: 'breadcrumbs', component: BreadcrumbsComponent },
-  { path: 'buttons', component: ButtonsComponent },
-  { path: 'cards', component: CardsComponent },
-  { path: 'carousel', component: CarouselComponent },
-  { path: 'charts-apexcharts', component: ChartsApexchartsComponent },
-  { path: 'charts-chartjs', component: ChartsChartjsComponent },
-  { path: 'form-editors', component: FormsEditorsComponent },
-  { path: 'form-elements', component: FormsElementsComponent },
-  { path: 'form-layouts', component: FormsLayoutsComponent },
-  { path: 'icons-bootstrap', component: IconsBootstrapComponent },
-  { path: 'icons-boxicons', component: IconsBoxiconsComponent },
-  { path: 'icons-remix', component: IconsRemixComponent },
-  { path: 'list-group', component: ListGroupComponent },
-  { path: 'modal', component: ModalComponent },
-  { path: 'pagination', component: PaginationComponent },
-  { path: 'progress', component: ProgressComponent },
-  { path: 'spinners', component: SpinnersComponent },
-  { path: 'tables-data', component: TablesDataComponent },
-  { path: 'tables-general', component: TablesGeneralComponent },
-  { path: 'tabs', component: TabsComponent },
-  { path: 'tooltips', component: TooltipsComponent },
-  { path: 'pages-blank', component: PagesBlankComponent },
-  { path: 'pages-contact', component: PagesContactComponent },
   { path: 'pages-error404', component: PagesError404Component },
-  { path: 'pages-faq', component: PagesFaqComponent },
   { path: 'pages-login', component: PagesLoginComponent },
   { path: 'pages-register', component: PagesRegisterComponent },
   { path: 'user-profile', component: UsersProfileComponent },
+  {path :'**', component: PagesError404Component}
 ];
 
 @NgModule({

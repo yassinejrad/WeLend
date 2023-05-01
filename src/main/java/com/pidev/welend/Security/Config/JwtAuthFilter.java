@@ -1,4 +1,4 @@
-package com.pidev.welend.Security.Config;
+/*package com.pidev.welend.Security.Config;
 
 import com.pidev.welend.services.UsersService;
 import org.jetbrains.annotations.NotNull;
@@ -53,3 +53,4 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
+*/

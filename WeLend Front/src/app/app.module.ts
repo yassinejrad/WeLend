@@ -53,6 +53,15 @@ import { AddInsuranceComponentComponent } from './pages/insurance/add-insurance-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { InsuranceTypeComponent } from './pages/insurance/insurance-type/insurance-type.component';
+import { InsuranceTransactionComponent } from './pages/insurance/insurance-transaction/insurance-transaction.component';
+import { InsuranceDetailComponent } from './pages/insurance/insurance-detail/insurance-detail.component';
+import { SidebarClientComponent } from './layouts/sidebar-client/sidebar-client.component';
+import { InsuranceClientComponent } from './pages/insurance/insurance-client/insurance-client.component';
+import { InsuranceTransactionClientComponent } from './pages/insurance/insurance-transaction-client/insurance-transaction-client.component';
+import { InsuranceDetailClientComponent } from './pages/insurance/insurance-detail-client/insurance-detail-client.component'  
 
 
 
@@ -96,7 +105,14 @@ import { NgxPaginationModule } from 'ngx-pagination';
     PagesBlankComponent,
     InsuranceComponent,
     AuthentificationComponent,
-    AddInsuranceComponentComponent
+    AddInsuranceComponentComponent,
+    InsuranceTypeComponent,
+    InsuranceTransactionComponent,
+    InsuranceDetailComponent,
+    SidebarClientComponent,
+    InsuranceClientComponent,
+    InsuranceTransactionClientComponent,
+    InsuranceDetailClientComponent
   ],
     imports: [
         BrowserModule,
@@ -113,7 +129,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
         BrowserAnimationsModule,
         NgbModule,
         NgbModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        MatPaginatorModule,
+        MatTableModule
     ],
   providers: [InsuranceComponent],
   bootstrap: [AppComponent]

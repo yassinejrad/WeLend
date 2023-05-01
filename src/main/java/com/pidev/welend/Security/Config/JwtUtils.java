@@ -1,4 +1,4 @@
-package com.pidev.welend.Security.Config;
+/*package com.pidev.welend.Security.Config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -56,3 +56,4 @@ public class JwtUtils {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
+*/

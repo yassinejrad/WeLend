@@ -1,4 +1,4 @@
-package com.pidev.welend.services;
+/*package com.pidev.welend.services;
 
 import com.pidev.welend.entities.Users;
 import com.pidev.welend.repos.UsersRepo;
@@ -63,3 +63,4 @@ public class UsersServiceImp implements UsersService{
         usersRepo.deleteById(UserID);
     }
 }
+*/

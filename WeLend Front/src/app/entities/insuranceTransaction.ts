@@ -4,7 +4,7 @@ export interface InsuranceTransaction {
   insuranceTransactionID:number;
   amount:number;
   insuranceTransactionStatus:String;
-  Description:String;
+  description:String;
   insuranceTransactionDate:Date;
-  insurance:insurance;
+  insuranceID:number;
 }

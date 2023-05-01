@@ -3,9 +3,8 @@ import { InsuranceService } from "../../services/insurance/insurance.service";
 import { Insurance } from "../../entities/insurance";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { AddInsuranceComponentComponent } from './add-insurance-component/add-insurance-component.component';
 import { ModalDismissReasons,NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PaginatePipe } from 'ngx-pagination';
+import Chart from 'chart.js/auto';
 
 
 @Component({
@@ -15,29 +14,44 @@ import { PaginatePipe } from 'ngx-pagination';
   providers: [MatDialog]
 })
 export class InsuranceComponent implements OnInit {
-  public insurances!: Insurance[];
+  insurances!: Insurance[];
+  
   closeResult! : string;
   p: number = 1; // variable for current page
 
-
-  constructor(
-    private InsuranceService: InsuranceService,
-    private dialog: MatDialog,
-    private modalService: NgbModal
-  ) { }
-  
   insuranceForm!: FormGroup;
   formBuilder!: FormBuilder;
   insurance!:Insurance;
-  
-  
+  form : boolean = false;
+  tableSize: number = 10;
+  count : number = 0;
+  chart: any;
+  InterestByInsurance!:Map<String,number>;
 
+
+  
+  
+  
+  constructor(
+    private InsuranceService: InsuranceService,
+    private modalService: NgbModal
+  ) { }
+  
   ngOnInit(): void {
-    this.insurances=this.InsuranceService.insuranceList;
-    this.getInsurances();
-    
-    
+    this.insurance = {
+      insuranceID: 0,
+      insuranceDescription: '',
+      startDate: new Date(),
+      endDate: new Date(),
+      renewalCount: 0,
+      intresetRate: 0,
+      amount: 0,
+    };
+    this.getInsurances(); 
+    this.createChart(this.calculateInterestByInsurance());
+   
   }
+  
 
   public getInsurances(): void {
     this.InsuranceService.getAllInsurances().subscribe((insurances: Insurance[]) => {
@@ -46,6 +60,24 @@ export class InsuranceComponent implements OnInit {
         console.log("Insurance Id: ", this.insurances[i].insuranceID);
       }
     });
+  }
+  
+  addInsurance(){
+    
+    this.InsuranceService.addInsuranceAndTransaction(this.insurance).subscribe(() => {
+      this.getInsurances();
+      this.form = false;
+    });
+  }
+  editInsurance(){
+    this.InsuranceService.updateInsurance(this.insurance).subscribe(() => {
+      this.getInsurances();
+      this.form = false;
+    });
+  }
+  deleteInsurance(insuranceID : number){
+    this.InsuranceService.deleteInsurance(insuranceID).subscribe(() => this.getInsurances())
+    this.closeResult = `Closed with: `;
   }
   open(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -64,5 +96,48 @@ export class InsuranceComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+  onTableDataChange(event: any) {
+    console.log("this is the event "+event)
+    this.p = event;
+    this.getInsurances;
+  }
+  public calculateInterestByInsurance(): Map<String,number> {
+    this.InsuranceService.calculateInterestByinsuranceType().subscribe((InterestByInsurance: Map<String,number>) => {
+      this.InterestByInsurance = InterestByInsurance;
+    });
+    return this.InterestByInsurance;
+  }
+  createChart(InterestByInsurance:Map<String,number>){
+
+    this.chart = new Chart("MyChart", {
+      type: 'pie', //this denotes tha type of chart
+
+      data: {// values on X-Axis
+        labels: Array.from(InterestByInsurance.keys()),
+         datasets: [{
+    label: 'My First Dataset',
+    data: Array.from(InterestByInsurance.values()),
+    backgroundColor: [
+      'red',
+      'pink',
+      'green',
+      'yellow',
+      'orange',
+      'blue',			
+    ],
+    hoverOffset: 4
+  }],
+      },
+      options: {
+        aspectRatio:2.5
+      }
+
+    });
+    }
+
+  
+  
+  
   
 }
+

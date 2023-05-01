@@ -14,37 +14,37 @@ export class InsuranceTransactionService {
 
   constructor(private http: HttpClient) {}
   public addInsuranceTransaction(insuranceTransaction:InsuranceTransaction): Observable<InsuranceTransaction>{
-    return this.http.post<InsuranceTransaction>(`${this.apiUrl}/insurance/add`,insuranceTransaction);
+    return this.http.post<InsuranceTransaction>(`${this.apiUrl}/insuranceTransaction/add`,insuranceTransaction);
   }
   public updateInsuranceTransaction(insuranceTransaction:InsuranceTransaction): Observable<InsuranceTransaction>{
-    return this.http.put<InsuranceTransaction>(`${this.apiUrl}/insurance/update`,insuranceTransaction);
+    return this.http.put<InsuranceTransaction>(`${this.apiUrl}/insuranceTransaction/update`,insuranceTransaction);
   }
   public deleteInsuranceTransaction(insuranceTransactionID:number): Observable<void>{
     return this.http.delete<void>(`${this.apiUrl}/insurance/delete/`+insuranceTransactionID);
   }
   public getAllInsuranceTransaction(): Observable<InsuranceTransaction[]>{
-    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insurance/getAll`);
+    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insuranceTransaction/getAll`);
   }
   public getInsuranceTransactionById(insuranceTransactionID:number): Observable<InsuranceTransaction>{
-    return this.http.get<InsuranceTransaction>(`${this.apiUrl}/insurance/getByID/`+insuranceTransactionID);
+    return this.http.get<InsuranceTransaction>(`${this.apiUrl}/insuranceTransaction/getByID/`+insuranceTransactionID);
   }
   public getInsuranceTransactionByInsuranceId(insuranceID:number): Observable<InsuranceTransaction[]>{
-    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insurance/getByInsuranceID/`+insuranceID);
+    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insuranceTransaction/getByInsuranceID/`+insuranceID);
   }
   public checkAllUnpaidInsuranceTransactionByYear(insuranceID:number,year:number): Observable<InsuranceTransaction[]>{
-    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insurance/checkAllUnpaidInsuranceTransactionByYear/`+insuranceID+'/'+year);
+    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insuranceTransaction/checkAllUnpaidInsuranceTransactionByYear/`+insuranceID+'/'+year);
   }
   public getAllInsuranceTransactionPendingByInsurance(insuranceID:number): Observable<InsuranceTransaction[]>{
-    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insurance/getAllInsuranceTransactionPendingByInsurance/`+insuranceID);
+    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insuranceTransaction/getAllInsuranceTransactionPendingByInsurance/`+insuranceID);
   }
   public getAllInsuranceTransactionNotfullySetteledByInsurance(insuranceID:number): Observable<InsuranceTransaction[]>{
-    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insurance/getAllInsuranceTransactionNotfullySetteledByInsurance/`+insuranceID);
+    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insuranceTransaction/getAllInsuranceTransactionNotfullySetteledByInsurance/`+insuranceID);
   }
   public getAllInsuranceTransactionSettledByInsurance(insuranceID:number): Observable<InsuranceTransaction[]>{
-    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insurance/getAllInsuranceTransactionSettledByInsurance/`+insuranceID);
+    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insuranceTransaction/getAllInsuranceTransactionSettledByInsurance/`+insuranceID);
   }
   public getAllInsuranceTransactionByAccountID(accountID:number): Observable<InsuranceTransaction[]>{
-    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insurance/getAllInsuranceTransactionByAccountID/`+accountID);
+    return this.http.get<InsuranceTransaction[]>(`${this.apiUrl}/insuranceTransaction/getAllInsuranceTransactionByAccountID/`+accountID);
   }
 
 }

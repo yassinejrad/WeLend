@@ -1,4 +1,4 @@
-package com.pidev.welend.Controllers;
+/*package com.pidev.welend.Controllers;
 
 import com.pidev.welend.Security.Config.JwtUtils;
 import com.pidev.welend.entities.Users;
@@ -47,3 +47,4 @@ return ResponseEntity.status(400).body("Error");
 
 
 }
+*/

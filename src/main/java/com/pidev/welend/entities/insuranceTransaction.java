@@ -1,5 +1,7 @@
 package com.pidev.welend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +13,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table( name = "InsuranceTransaction")
+
 public class insuranceTransaction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +24,7 @@ public class insuranceTransaction implements Serializable {
     private insuranceTransactionStatus insuranceTransactionStatus;
     private String Description;
     private Date insuranceTransactionDate;
+    @JsonIgnore
+    @JoinColumn(name = "insuranceID")
     @ManyToOne insurance insurance;
 }

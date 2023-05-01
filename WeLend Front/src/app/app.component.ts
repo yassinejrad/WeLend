@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'WeLend';
+  userType!:String;
   constructor(private elementRef: ElementRef,  public  _router: Router) { }
 
   ngOnInit() {
@@ -15,5 +16,6 @@ export class AppComponent {
     s.type = "text/javascript";
     s.src = "../assets/js/main.js";
     this.elementRef.nativeElement.appendChild(s);
+    this.userType='Client';
   }
 }

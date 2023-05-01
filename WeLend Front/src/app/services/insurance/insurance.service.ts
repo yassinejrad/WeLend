@@ -11,7 +11,7 @@ import {AuthentificationService} from "../authentification/authentification.serv
   providedIn: 'root'
 })
 export class InsuranceService {
-  insuranceList:Insurance[]=[{
+ /* insuranceList:Insurance[]=[{
     insuranceID:0,
     insuranceDescription: 'Static Insurance',
     startDate: new Date('2022-01-01'),
@@ -38,25 +38,17 @@ export class InsuranceService {
     intresetRate: 5,
     renewalCount: 0
   }];
-  
+  */
   private apiUrl =environment.apiBaseUrl;
 
   constructor(private http: HttpClient, private authService: AuthentificationService) {}
 
   public getAllInsurances(): Observable<Insurance[]>{
-    const headers = new HttpHeaders({
-      'Content-Type': 'text/plain',
-      Authorization: `Bearer ${this.authService.getToken()}`
-    });
-    console.log("this the header "+this.authService.getToken());
-    return this.http.get<Insurance[]>(`${this.apiUrl}/insurance/getAll`, { headers });
+    return this.http.get<Insurance[]>(`${this.apiUrl}/insurance/getAll`);
   }
   public getAllInsurancesByAccountID(accountID:number): Observable<Insurance[]> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'text/plain',
-      'Authorization': `Bearer ${this.authService.getToken()}`
-    });
-    return this.http.get<Insurance[]>(`${this.apiUrl}/insurance/getAllInsurancesByAccountID/`+accountID, { headers });
+    
+    return this.http.get<Insurance[]>(`${this.apiUrl}/insurance/getAllInsurancesByAccountID/`+accountID);
   }
   public getInsuranceByID(insuranceID:number): Observable<Insurance> {
     return this.http.get<Insurance>(`${this.apiUrl}/insurance/getByID/`+insuranceID);
@@ -70,8 +62,8 @@ export class InsuranceService {
   public addInsurance(insurance: Insurance): Observable<Insurance> {
     return this.http.post<Insurance>(`${this.apiUrl}/insurance/add/`, insurance);
   }
-  public addInsuranceAndTransaction(insurance: Insurance,date:Date): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/insurance/addInsuranceAndTransaction/`+date, insurance);
+  public addInsuranceAndTransaction(insurance: Insurance): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/insurance/addInsuranceAndTransaction/`, insurance);
   }
   public renewInsurance(insuranceID:number): Observable<void> {
     return this.http.get<void>(`${this.apiUrl}/insurance/renewInsurance/`+insuranceID);
@@ -80,10 +72,10 @@ export class InsuranceService {
     return this.http.get<Map<String,number>>(`${this.apiUrl}/insurance/calculateInterestByYear/`+year);
   }
   public calculateInterestByInsurance(): Observable<Map<String,number>> {
-    return this.http.get<Map<String,number>>(`${this.apiUrl}/insurance/calculateInterestByInsurance/`);
+    return this.http.get<Map<String,number>>(`${this.apiUrl}/insurance/calculateInterestByInsurance`);
   }
   public calculateInterestByinsuranceType(): Observable<Map<String,number>> {
-    return this.http.get<Map<String,number>>(`${this.apiUrl}/insurance/calculateInterestByinsuranceType/`);
+    return this.http.get<Map<String,number>>(`${this.apiUrl}/insurance/calculateInterestByinsuranceType`);
   }
 
 
