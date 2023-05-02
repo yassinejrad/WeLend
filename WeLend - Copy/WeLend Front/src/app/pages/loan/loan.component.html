@@ -1,0 +1,205 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Loan List</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item">Loan</li>
+        <li class="breadcrumb-item active">Loan List</li>
+      </ol>
+    </nav>
+      <button type="button" class="btn btn-md btn-outline-primary" (click)="open(addLoan)">Add Loan</button>
+
+      <ng-template #addLoan let-modal >
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">New Loan</h4>
+        </div>
+        <div class="modal-body">
+          <form #addLoanForm="ngForm"  name="addLoanForm"  >
+            <div class="form-group">
+              <label for="loanAmount" class=" col-form-label">Loan Amount</label>
+              <input type="number" name="loanAmount" class="form-control" id="loanAmount" [(ngModel)]="newLoan.loanAmount" #loanAmount="ngModel" required>
+              <div   *ngIf="loanAmount.touched && loanAmount.invalid">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="loanAmount.errors?.['required']">Insurance Description is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="loanNumber" class=" col-form-label">Loan Number</label>
+              <input type="number" name="loanNumber" class="form-control" id="loanNumber" [(ngModel)]="newLoan.loanNumber" #loanNumber="ngModel" required>
+              <div   *ngIf="loanNumber.touched && loanNumber.invalid">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="loanNumber.errors?.['required']">Start Date is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="durationInMonths" class=" col-form-label">durationInMonths</label>
+              <input type="number" name="durationInMonths" class="form-control" id="durationInMonths" [(ngModel)]="newLoan.durationInMonths" #durationInMonths="ngModel" required>
+              <div   *ngIf="durationInMonths.touched && durationInMonths.invalid">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="durationInMonths.errors?.['required']">End Date is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="interestRate">Interest Rate</label>
+              <input type="number" name="interestRate" class="form-control" id="interestRate" min="0" max="100" [(ngModel)]="newLoan.interestRate" #interestRate="ngModel" required>
+              <div *ngIf="interestRate.touched && interestRate.invalid">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="interestRate.errors?.['required']">Interest Rate is required.</div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="interestRate.errors?.['min']">Interest Rate cannot be less than 0.</div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="interestRate.errors?.['max']">Interest Rate cannot be greater than 100.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="collaterals" class=" col-form-label">collaterals</label>
+              <input type="text" name="collaterals" class="form-control" id="amount" [(ngModel)]="newLoan.collaterals" #collaterals="ngModel" min="1" required>
+              <div   *ngIf="collaterals.touched && collaterals.invalid">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="collaterals.errors?.['required']">Amount is required.</div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-success btn-block" [disabled]="addLoanForm.invalid" (click)="modal.close('Save click') ">Save</button>
+              <button type="button" class="btn btn-danger" aria-label="Close"  (click)="modal.close('Cancel click')">Cancel</button>
+            </div>
+          </form>
+        </div>
+
+      </ng-template>
+
+
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <table class="table ">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Loan number</th>
+                  <th scope="col">Loan Amount</th>
+                  <th scope="col">durationInMonths</th>
+                  <th scope="col">interest rate</th>
+                  <th scope="col">collaterals</th>
+                  <th scope="col">loan status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of loans | paginate: {
+                  itemsPerPage: tableSize,
+                  currentPage: p,
+                  totalItems: count
+                }let i = index;">
+
+
+                  <ng-template #contentDelete let-modal >
+                  <div class="modal-header">
+                    <h4 class="modal-title">Confirm Delete</h4>
+                  </div>
+                  <div class="modal-body">
+                    <h2>Are you sure you want to delete this loan.</h2>
+                    <div class=" text-center">
+                    <!-- <button data-dismiss="modal" class="btn btn-danger" (click)="deleteLoan(item.loanID)">Yes, Delete! </button>-->
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" aria-label="Close"  (click)="modal.close('Cancel click')">Cancel</button>
+                  </div>
+                </ng-template>
+
+                  <td scope="row">{{i}}</td>
+                  <td>{{item.loanID}}</td>
+                  <td>{{item.loanAmount}}</td>
+                  <td>{{item.loanNumber}}</td>
+                  <td>{{item.interestRate}}</td>
+                  <td>{{item.collaterals}}</td>
+                  <td>{{item.loanStatus}}</td>
+                  <td>
+                    <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
+                    <button type="button"  class="btn btn-info"(click)="open(editLoan)" ><i class="bi bi-pencil"></i></button>
+
+
+
+                    <ng-template #editLoan let-modal >
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Edit Loan n: {{item.loanID}} </h4>
+                      </div>
+                      <div class="modal-body">
+                        <form #editLoanForm="ngForm"  name="editLoanForm" >
+                          <div class="form-group">
+                            <label for="loanAmount" class=" col-form-label">Loan Amount</label>
+                            <input type="number" name="loanAmount" class="form-control" id="loanAmount" [(ngModel)]="newLoan.loanAmount" #loanAmount="ngModel" required>
+                            <div   *ngIf="loanAmount.touched && loanAmount.invalid">
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="loanAmount.errors?.['required']">Insurance Description is required.</div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="loanNumber" class=" col-form-label">Loan Number</label>
+                            <input type="number" name="loanNumber" class="form-control" id="loanNumber" [(ngModel)]="newLoan.loanNumber" #loanNumber="ngModel" required>
+                            <div   *ngIf="loanNumber.touched && loanNumber.invalid">
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="loanNumber.errors?.['required']">Start Date is required.</div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="durationInMonths" class=" col-form-label">durationInMonths</label>
+                            <input type="number" name="durationInMonths" class="form-control" id="durationInMonths" [(ngModel)]="newLoan.durationInMonths" #durationInMonths="ngModel" required>
+                            <div   *ngIf="durationInMonths.touched && durationInMonths.invalid">
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="durationInMonths.errors?.['required']">End Date is required.</div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="interestRate">Interest Rate</label>
+                            <input type="number" name="interestRate" class="form-control" id="interestRate" min="0" max="100" [(ngModel)]="newLoan.interestRate" #interestRate="ngModel" required>
+                            <div *ngIf="interestRate.touched && interestRate.invalid">
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="interestRate.errors?.['required']">Interest Rate is required.</div>
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="interestRate.errors?.['min']">Interest Rate cannot be less than 0.</div>
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="interestRate.errors?.['max']">Interest Rate cannot be greater than 100.</div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="collaterals" class=" col-form-label">collaterals</label>
+                            <input type="text" name="collaterals" class="form-control" id="amount" [(ngModel)]="newLoan.collaterals" #collaterals="ngModel" min="1" required>
+                            <div   *ngIf="collaterals.touched && collaterals.invalid">
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="collaterals.errors?.['required']">Amount is required.</div>
+                            </div>
+                          </div>
+
+
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success" [disabled]="editLoanForm.invalid" (click)= "addLoan">Save</button>
+                        <button type="button" class="btn btn-danger" aria-label="Close"  (click)="modal.dismiss('Cross click')">Cancel</button>
+                      </div>
+                    </ng-template>
+
+
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <button type="button" class="btn btn-danger" (click)="open(contentDelete)"><i class="bi bi-trash"></i></button>
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="card-body">
+      <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <pagination-controls previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="onTableDataChange($event)"></pagination-controls>
+          </ul>
+      </nav>
+    </div>
+ </section>
+</main>
+
+
+
+

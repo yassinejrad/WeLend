@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "loan.score.weights",
+      "type": "com.pidev.welend.entities.LoanScoreWeights",
+      "sourceType": "com.pidev.welend.entities.LoanScoreWeights"
+    }
+  ],
+  "properties": [
+    {
+      "name": "loan.score.weights.credit-score",
+      "type": "java.lang.Double",
+      "sourceType": "com.pidev.welend.entities.LoanScoreWeights"
+    },
+    {
+      "name": "loan.score.weights.debt-to-income",
+      "type": "java.lang.Double",
+      "sourceType": "com.pidev.welend.entities.LoanScoreWeights"
+    },
+    {
+      "name": "loan.score.weights.employment-history",
+      "type": "java.lang.Double",
+      "sourceType": "com.pidev.welend.entities.LoanScoreWeights"
+    },
+    {
+      "name": "loan.score.weights.income",
+      "type": "java.lang.Double",
+      "sourceType": "com.pidev.welend.entities.LoanScoreWeights"
+    }
+  ],
+  "hints": []
+}

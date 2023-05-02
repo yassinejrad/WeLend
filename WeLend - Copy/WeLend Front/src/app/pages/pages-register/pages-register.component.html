@@ -1,0 +1,214 @@
+<main>
+  <div class="container">
+    <section
+      class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4"
+    >
+      <div class="container">
+        <div class="row justify-content-center">
+          <div
+            class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center"
+          >
+            <div class="d-flex justify-content-center py-4">
+              <a routerLink="/" class="logo d-flex align-items-center w-auto">
+                <img src="assets/img/logo-welend.png" alt="" />
+              </a>
+            </div>
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="pt-4 pb-2">
+                  <h5 class="card-title text-center pb-0 fs-4">
+                    Create an Account
+                  </h5>
+                  <p class="text-center small">
+                    Enter your personal details to create account
+                  </p>
+                </div>
+                <form
+                  class="row g-3 needs-validation"
+                  (ngSubmit)="addClient()"
+                  novalidate
+                >
+                  <div class="col-12">
+                    <label for="userName" class="form-label">Username </label>
+                    <input
+                      type="text"
+                      name="userName"
+                      [(ngModel)]="client.userName"
+                      class="form-control"
+                      id="userName"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Please, enter your username!
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="yourEmail" class="form-label">Your Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      [(ngModel)]="client.email"
+                      class="form-control"
+                      id="yourEmail"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Please enter a valid Email adddress!
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="birthDate" class="form-label">birthDate</label>
+                    <div class="input-group has-validation">
+                      <input
+                        type="date"
+                        name="birthDate"
+                        [(ngModel)]="client.birthDate"
+                        class="form-control"
+                        id="birthDate"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please choose a birthDate.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="yourPassword" class="form-label"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      name="password"
+                      [(ngModel)]="client.pwd"
+                      class="form-control"
+                      id="yourPassword"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Please enter your password!
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="phoneNum" class="form-label">phoneNum</label>
+                    <div class="input-group has-validation">
+                      <input
+                        type="number"
+                        name="phoneNum"
+                        [(ngModel)]="client.phoneNum"
+                        class="form-control"
+                        id="phoneNum"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please choose a phoneNum.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="adress" class="form-label">adress</label>
+                    <div class="input-group has-validation">
+                      <input
+                        type="text"
+                        name="adress"
+                        [(ngModel)]="client.adress"
+                        class="form-control"
+                        id="adress"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please choose a adress.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="employement" class="form-label"
+                      >employement</label
+                    >
+                    <div class="input-group has-validation">
+                      <input
+                        type="text"
+                        name="employement"
+                        [(ngModel)]="client.employement"
+                        class="form-control"
+                        id="employement"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please choose a employement.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="income" class="form-label">income</label>
+                    <div class="input-group has-validation">
+                      <input
+                        type="number"
+                        name="income"
+                        [(ngModel)]="client.income"
+                        class="form-control"
+                        id="income"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please choose a income.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="expenses" class="form-label">expenses</label>
+                    <div class="input-group has-validation">
+                      <input
+                        type="number"
+                        name="expenses"
+                        [(ngModel)]="client.expenses"
+                        class="form-control"
+                        id="expenses"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please choose a expenses.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        name="terms"
+                        type="checkbox"
+                        value=""
+                        id="acceptTerms"
+                        required
+                      />
+                      <label class="form-check-label" for="acceptTerms"
+                        >I agree and accept the
+                        <a href="#">terms and conditions</a></label
+                      >
+                      <div class="invalid-feedback">
+                        You must agree before submitting.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button class="btn btn-primary w-100" type="submit">
+                      Create Account
+                    </button>
+                  </div>
+                  <div class="col-12">
+                    <p class="small mb-0">
+                      Already have an account?
+                      <a routerLink="/pages-login">Log in</a>
+                    </p>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="credits">
+              Loved by <a href="https://freeetemplates.com/">FreeeTemplates</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

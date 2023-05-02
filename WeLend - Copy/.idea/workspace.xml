@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="22c5d7ee-a64b-4ea3-9a67-fb80ce787942" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2NvKAKglRKG9A3WrPynZrkAatWI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "E:/projet pi ons/Nouveau dossier/Nouveau dossier/WeLend - Copy",
+    "spring.configuration.checksum": "c8650217ff0461dd4a1995651ccd56ab"
+  }
+}]]></component>
+  <component name="RunManager" selected="Spring Boot.WeLendApplication">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="WeLend - Copy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="WeLend - Copy" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ContactprojectApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="contactproject" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.pidev.welend.WeLendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WeLendApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="WeLend - Copy" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.pidev.welend.WeLendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WeLendApplication (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="WeLend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.pidev.welend.WeLendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WeLendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" />
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <module name="WeLend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.pidev.welend.WeLendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="22c5d7ee-a64b-4ea3-9a67-fb80ce787942" name="Changes" comment="" />
+      <created>1680538971004</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680538971004</updated>
+      <workItem from="1680538972144" duration="637000" />
+      <workItem from="1680563866537" duration="14552000" />
+      <workItem from="1680580556299" duration="4022000" />
+      <workItem from="1681768324041" duration="802000" />
+      <workItem from="1681811388785" duration="2335000" />
+      <workItem from="1682177347864" duration="1042000" />
+      <workItem from="1682178445530" duration="262000" />
+      <workItem from="1682180318326" duration="1467000" />
+      <workItem from="1682993047163" duration="1460000" />
+      <workItem from="1682994952665" duration="409000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
