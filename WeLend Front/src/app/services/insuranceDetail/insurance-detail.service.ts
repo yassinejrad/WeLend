@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {InsuranceDetail} from "../../entities/insuranceDetail";
 import {environment} from "../../../environments/environment";
+import { NumberNumberMap } from 'src/app/entities/numberNumberMap';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,8 @@ export class InsuranceDetailService {
   public getInsuranceDetailByInsuranceID(insuranceID:number): Observable<InsuranceDetail[]>{
     return this.http.get<InsuranceDetail[]>(`${this.apiUrl}/insuranceDetail/getByInsuranceID/`+insuranceID);
   }
-  public getAverageAmountSpent(year: number): Observable<Map<number, number>> {
-    return this.http.get<Map<number, number>>(`${this.apiUrl}/insuranceDetail/getAverageAmountSpent/`+year);
+  public getAverageAmountSpent(year: number): Observable<NumberNumberMap> {
+    return this.http.get<NumberNumberMap>(`${this.apiUrl}/insuranceDetail/getAverageAmountSpent/`+year);
   }
   public getAllInsuranceDetailByAccountID(accountID:number): Observable<InsuranceDetail[]>{
     return this.http.get<InsuranceDetail[]>(`${this.apiUrl}/insuranceDetail/getAllInsuranceDetailByAccountID/`+accountID);

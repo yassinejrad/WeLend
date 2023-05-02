@@ -16,6 +16,6 @@ export class AppComponent {
     s.type = "text/javascript";
     s.src = "../assets/js/main.js";
     this.elementRef.nativeElement.appendChild(s);
-    this.userType='Client';
+    this.userType='Admin';
   }
 }

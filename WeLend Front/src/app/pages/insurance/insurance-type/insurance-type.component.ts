@@ -4,15 +4,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InsuranceTypeService } from 'src/app/services/insuranceType/insurance-type.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NumberMap } from 'src/app/entities/numberMap';
 
 @Component({
   selector: 'app-insurance-type',
   templateUrl: './insurance-type.component.html',
   styleUrls: ['./insurance-type.component.css']
 })
+
 export class InsuranceTypeComponent implements OnInit {
   insurancesType!: InsuranceType[];
-  
+ 
   closeResult! : string;
   p: number = 1; // variable for current page
 

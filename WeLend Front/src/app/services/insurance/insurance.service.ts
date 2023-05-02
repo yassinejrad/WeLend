@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Insurance} from "../../entities/insurance";
 import {environment} from "../../../environments/environment";
 import {AuthentificationService} from "../authentification/authentification.service";
+import { NumberMap } from 'src/app/entities/numberMap';
 
 
 
@@ -68,14 +69,14 @@ export class InsuranceService {
   public renewInsurance(insuranceID:number): Observable<void> {
     return this.http.get<void>(`${this.apiUrl}/insurance/renewInsurance/`+insuranceID);
   }
-  public calculateInterestByYear(year:number): Observable<Map<String,number>> {
-    return this.http.get<Map<String,number>>(`${this.apiUrl}/insurance/calculateInterestByYear/`+year);
+  public calculateInterestByYear(year:number): Observable<NumberMap> {
+    return this.http.get<NumberMap>(`${this.apiUrl}/insurance/calculateInterestByYear/`+year);
   }
-  public calculateInterestByInsurance(): Observable<Map<String,number>> {
-    return this.http.get<Map<String,number>>(`${this.apiUrl}/insurance/calculateInterestByInsurance`);
+  public calculateInterestByInsurance(): Observable<NumberMap> {
+    return this.http.get<NumberMap>(`${this.apiUrl}/insurance/calculateInterestByInsurance`);
   }
-  public calculateInterestByinsuranceType(): Observable<Map<String,number>> {
-    return this.http.get<Map<String,number>>(`${this.apiUrl}/insurance/calculateInterestByinsuranceType`);
+  public calculateInterestByinsuranceType(): Observable<NumberMap> {
+    return this.http.get<NumberMap>(`${this.apiUrl}/insurance/calculateInterestByinsuranceType`);
   }
 
 

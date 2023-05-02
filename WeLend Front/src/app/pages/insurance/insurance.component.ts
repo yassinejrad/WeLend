@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalDismissReasons,NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Chart from 'chart.js/auto';
+import { NumberMap } from 'src/app/entities/numberMap';
 
 
 @Component({
@@ -15,7 +16,7 @@ import Chart from 'chart.js/auto';
 })
 export class InsuranceComponent implements OnInit {
   insurances!: Insurance[];
-  
+  numberMap!:NumberMap;
   closeResult! : string;
   p: number = 1; // variable for current page
 
@@ -27,6 +28,8 @@ export class InsuranceComponent implements OnInit {
   count : number = 0;
   chart: any;
   InterestByInsurance!:Map<String,number>;
+  myNumber!:number[];
+  myString!:String[];
 
 
   
@@ -48,7 +51,8 @@ export class InsuranceComponent implements OnInit {
       amount: 0,
     };
     this.getInsurances(); 
-    this.createChart(this.calculateInterestByInsurance());
+    //this.createChart();
+    this.calculateInterestByInsurance();
    
   }
   
@@ -101,39 +105,44 @@ export class InsuranceComponent implements OnInit {
     this.p = event;
     this.getInsurances;
   }
-  public calculateInterestByInsurance(): Map<String,number> {
-    this.InsuranceService.calculateInterestByinsuranceType().subscribe((InterestByInsurance: Map<String,number>) => {
-      this.InterestByInsurance = InterestByInsurance;
-    });
-    return this.InterestByInsurance;
-  }
-  createChart(InterestByInsurance:Map<String,number>){
-
-    this.chart = new Chart("MyChart", {
-      type: 'pie', //this denotes tha type of chart
-
-      data: {// values on X-Axis
-        labels: Array.from(InterestByInsurance.keys()),
-         datasets: [{
-    label: 'My First Dataset',
-    data: Array.from(InterestByInsurance.values()),
-    backgroundColor: [
-      'red',
-      'pink',
-      'green',
-      'yellow',
-      'orange',
-      'blue',			
-    ],
-    hoverOffset: 4
-  }],
-      },
-      options: {
-        aspectRatio:2.5
+  public calculateInterestByInsurance() {
+    this.InsuranceService.calculateInterestByInsurance().subscribe((numberMap: NumberMap) => {
+      this.numberMap = numberMap;
+      this.myNumber = Object.values(this.numberMap);
+      this.myString=Object.keys(this.numberMap);
+      for (let i = 0; i < this.myNumber.length; i++) {
+        console.log("Insurance Id: ", this.myNumber[i]);
       }
-
+      this.chart = new Chart("MyChart", {
+        type: 'pie', //this denotes tha type of chart
+  
+        data: {// values on X-Axis
+          labels: this.myString,
+           datasets: [{
+      label: 'Interest',
+      data: this.myNumber,
+      backgroundColor: [
+        'red',
+        'pink',
+        'green',
+        'yellow',
+        'orange',
+        'blue',			
+      ],
+      hoverOffset: 4
+    }],
+        },
+        options: {
+          aspectRatio:2.5
+        }
+  
+      });
+      
     });
-    }
+    
+  }
+ 
+  
 
   
   

@@ -8,11 +8,11 @@
     </div> 
 </div>
 <div *ngIf=" userType ==  'Admin' ">
-    <div *ngIf="(_router.url === '/myInsurance' || _router.url === '/myIinsuranceTransaction'|| _router.url === '/myIinsuranceDetail' ) " >
+    <div *ngIf="(_router.url === '/myInsurance' || _router.url === '/myInsuranceTransaction'|| _router.url === '/myInsuranceDetail' ) " >
         <app-pages-error404></app-pages-error404>
     </div>
-    <div *ngIf="!(_router.url === '/insurance' || _router.url === '/insuranceTransaction'|| _router.url === '/insuranceDetail' || _router.url === '/insuranceType') " >
-        <app-sidebar-client *ngIf="!(_router.url === '/pages-register' || _router.url === '/pages-login' || _router.url === '/pages-error404')" ></app-sidebar-client>
+    <div *ngIf="!(_router.url === '/myInsurance' || _router.url === '/myInsuranceTransaction'|| _router.url === '/myInsuranceDetail' ) " >
+        <app-sidebar *ngIf="!(_router.url === '/pages-register' || _router.url === '/pages-login' || _router.url === '/pages-error404')" ></app-sidebar>
     </div> 
 </div>
 <router-outlet></router-outlet>
